@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donate — Pulse of Perseverance Project</title>
+<meta name="description" content="Every dollar opens the right door. Give to P3 — a nonprofit EdTech career accelerator connecting underserved students with mentors through AI-powered smart matching.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul { list-style: none; }
+
+:root {
+  --crimson: #D93A3A;
+  --crimson-dark: #B82E2E;
+  --crimson-tint: #FCEEEE;
+  --maroon: #4A1020;
+  --maroon-deep: #2a0a14;
+  --warm-gray: #FAF7F4;
+  --warm-gray-2: #F0EBE5;
+  --dark: #1a1a1a;
+  --light-text: #6E6A66;
+  --border: #E6DED4;
+  --green: #16A34A;
+  --green-tint: #E8F7EE;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.06);
+  --shadow-hover: 0 16px 48px rgba(217,58,58,0.12);
+  --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ════════════════════════════ NAV (identical to For Students page) ════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; height: auto;
+  padding: 16px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: transparent;
+  transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
+  z-index: 1000;
+}
+.nav.scrolled {
+  background: rgba(26, 26, 26, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+.nav-logo { text-decoration: none; z-index: 10; line-height: normal; }
+.nav-logo img { height: 36px; max-height: 36px; }
+.nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+.nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500;
+  line-height: normal;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-cta {
+  background: #D93A3A; color: #fff !important;
+  padding: 10px 24px; border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  margin-left: 24px;
+}
+.nav-cta:hover { background: #b52f2f; transform: translateY(-1px); }
+
+.mobile-toggle {
+  display: none; width: 32px; height: 32px;
+  position: relative; z-index: 1001;
+}
+.mobile-toggle span {
+  display: block; width: 22px; height: 2px;
+  background: #fff; border-radius: 2px;
+  position: absolute; left: 5px;
+  transition: all 0.3s;
+}
+.mobile-toggle span:nth-child(1) { top: 10px; }
+.mobile-toggle span:nth-child(2) { top: 16px; }
+.mobile-toggle span:nth-child(3) { top: 22px; }
+.mobile-toggle.open span:nth-child(1) { top: 16px; transform: rotate(45deg); }
+.mobile-toggle.open span:nth-child(2) { opacity: 0; }
+.mobile-toggle.open span:nth-child(3) { top: 16px; transform: rotate(-45deg); }
+
+/* Mobile overlay menu — mirrors hp-shared-sections .pp-mob-overlay */
+.mob-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(26,26,26,0.98);
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 24px;
+  animation: fadeIn 0.25s ease;
+}
+.mob-overlay.open { display: flex; }
+.mob-overlay a {
+  color: #fff; font-size: 1.4rem; font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  opacity: 0.8; transition: opacity 0.3s;
+}
+.mob-overlay a:hover { opacity: 1; }
+.mob-overlay .mob-cta {
+  display: inline-flex; padding: 12px 28px;
+  border-radius: 100px; background: var(--crimson);
+  color: #fff; font-weight: 600; font-size: 1rem;
+  margin-top: 12px;
+  opacity: 1;
+}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+/* ════════════════════════════ HERO ════════════════════════════ */
+.hero {
+  position: relative;
+  padding: 100px 48px 40px;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(217,58,58,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 60% at 85% 70%, rgba(74,16,32,0.4), transparent 65%),
+    linear-gradient(135deg, #1a0510 0%, var(--maroon) 45%, #2a0a14 100%);
+  color: #fff;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 70% 80%, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 56px 56px, 72px 72px;
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 56px; align-items: center;
+  position: relative; z-index: 2;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 100px; padding: 7px 18px; margin-bottom: 22px;
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.5px; text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+.hero-badge .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--crimson); position: relative;
+}
+.hero-badge .pulse::after {
+  content: ''; position: absolute; inset: -4px;
+  border-radius: 50%; background: var(--crimson); opacity: 0.6;
+  animation: ping 2s cubic-bezier(0,0,0.2,1) infinite;
+}
+@keyframes ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 50px; font-weight: 700;
+  line-height: 1.2; letter-spacing: normal;
+  color: #fff; margin-bottom: 16px;
+}
+.hero h1 .accent {
+  color: #D93A3A;
+}
+.impact-card h3 .accent {
+  color: #D93A3A;
+}
+.hero-sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 540px; margin-bottom: 28px;
+  line-height: 1.7;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--crimson); color: #fff;
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-weight: 600; font-size: 0.9rem;
+  transition: all var(--transition);
+}
+.btn-primary:hover {
+  background: #fff; color: var(--crimson);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 14px 32px; border-radius: 100px;
+  font-weight: 600; font-size: 0.9rem;
+  transition: all var(--transition);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.6);
+}
+/* Hero stats — mirrors FS page .fm-hero-stats exactly */
+.hero-trust {
+  display: flex; gap: 32px;
+  margin-top: 32px; padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hero-trust-stat { display: flex; flex-direction: column; }
+.hero-trust-stat .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem; font-weight: 700;
+  color: #fff; line-height: 1.2;
+}
+.hero-trust-stat .lbl {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+
+/* Hero right — animated donation stat card */
+.hero-visual {
+  position: relative;
+  display: flex; justify-content: center; align-items: center;
+}
+.impact-card {
+  width: 100%; max-width: 440px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 24px;
+  padding: 28px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 30px 70px -20px rgba(0,0,0,0.5);
+  position: relative; overflow: hidden;
+}
+.impact-card::before {
+  content: '';
+  position: absolute; top: -20%; right: -10%;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(217,58,58,0.25), transparent 65%);
+  pointer-events: none;
+}
+.impact-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: #fff; margin-bottom: 6px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.impact-card p { font-size: 13.5px; color: rgba(255,255,255,0.65); margin-bottom: 20px; line-height: 1.5; }
+
+.impact-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; position: relative; z-index: 1;
+}
+.impact-stat {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px; padding: 16px 18px;
+}
+.impact-stat .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 700;
+  color: #fff; line-height: 1; letter-spacing: -0.01em;
+}
+.impact-stat .num .unit { font-size: 16px; color: var(--crimson); margin-left: 2px; }
+.impact-stat .lbl {
+  font-size: 11.5px; color: rgba(255,255,255,0.55);
+  margin-top: 6px; line-height: 1.4;
+}
+
+.impact-progress {
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  position: relative; z-index: 1;
+}
+.impact-progress-row {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: rgba(255,255,255,0.7);
+  margin-bottom: 8px;
+}
+.impact-progress-row strong { color: #fff; font-weight: 600; }
+.impact-track {
+  height: 8px; background: rgba(255,255,255,0.08);
+  border-radius: 50px; overflow: hidden;
+}
+.impact-fill {
+  width: 32.87%; height: 100%;
+  background: linear-gradient(90deg, var(--crimson), #ff6b6b);
+  border-radius: 50px;
+  box-shadow: 0 0 20px rgba(217,58,58,0.4);
+}
+
+/* ══════════════ SHARED SECTION STYLES ══════════════ */
+.section-tag {
+  display: inline-block; padding: 6px 16px; border-radius: 50px;
+  font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.tag-crimson { background: var(--crimson-tint); color: var(--crimson); }
+.tag-light { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.9); }
+.tag-dark { background: rgba(26,26,26,0.06); color: var(--dark); }
+
+.section-header { text-align: center; margin-bottom: 28px; }
+.section-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(28px, 3.2vw, 40px); font-weight: 700;
+  line-height: 1.2; letter-spacing: normal;
+  max-width: 720px; margin: 0 auto;
+}
+.section-header h2 .accent { color: var(--crimson); }
+.section-header p {
+  font-size: 16px; color: var(--light-text);
+  max-width: 620px; margin: 14px auto 0; line-height: 1.6;
+}
+
+/* ══════════════ GIVE NOW — PAYMENT-SELECTOR SECTION ══════════════ */
+.give-now {
+  padding: 36px 32px 36px;
+  background: var(--warm-gray);
+  position: relative;
+}
+.give-inner { max-width: 1040px; margin: 0 auto; }
+
+/* Tabs (like a sleek payment selector) */
+.give-tabs {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 8px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+}
+.give-tab {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: transparent;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--light-text);
+  transition: all 0.25s;
+  text-align: left;
+  position: relative;
+}
+.give-tab svg { width: 20px; height: 20px; stroke: currentColor; flex-shrink: 0; }
+.give-tab:hover { background: var(--warm-gray-2); color: var(--dark); }
+.give-tab.active {
+  background: var(--dark);
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgba(26,26,26,0.5);
+}
+.give-tab .tab-title { display: block; font-size: 14.5px; line-height: 1.2; }
+.give-tab .tab-sub { display: block; font-size: 11px; font-weight: 500; opacity: 0.7; letter-spacing: 0.3px; margin-top: 2px; }
+.give-tab-body {
+  display: flex; flex-direction: column; gap: 1px; text-align: left; flex: 1; min-width: 0;
+}
+
+/* Popular pill on monthly tab */
+.tab-pill {
+  position: absolute; top: -8px; right: 10px;
+  background: var(--crimson); color: #fff;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.8px;
+  padding: 3px 8px; border-radius: 50px;
+  text-transform: uppercase;
+}
+
+/* Tab panels */
+.give-panel {
+  display: none;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 36px;
+  box-shadow: var(--shadow-card);
+  animation: panelIn 0.4s ease;
+}
+.give-panel.active { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; }
+@keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.panel-left h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 700;
+  color: var(--dark); letter-spacing: normal;
+  line-height: 1.2; margin-bottom: 10px;
+}
+.panel-left h3 .accent { color: var(--crimson); }
+.panel-left p.lede {
+  font-size: 15px; color: var(--light-text);
+  line-height: 1.65; margin-bottom: 22px;
+}
+.panel-bullets { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.panel-bullet {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--dark);
+}
+.panel-bullet svg {
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+  color: var(--green); stroke: currentColor; stroke-width: 2;
+}
+.panel-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--crimson); color: #fff;
+  padding: 14px 26px;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; font-weight: 600;
+  line-height: 1;
+  transition: all var(--transition);
+  box-shadow: 0 6px 20px -4px rgba(217,58,58,0.4);
+}
+.panel-cta .cta-text {
+  display: inline-flex; align-items: baseline; white-space: nowrap;
+}
+.panel-cta .cta-amount {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  margin: 0 2px;
+}
+.panel-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -4px rgba(217,58,58,0.55);
+}
+.panel-cta.outline {
+  background: #fff; color: var(--dark);
+  border: 1.5px solid var(--border);
+  box-shadow: none;
+}
+.panel-cta.outline:hover {
+  background: var(--warm-gray);
+  border-color: var(--dark);
+  transform: translateY(-1px);
+}
+.panel-meta {
+  margin-top: 14px;
+  font-size: 12px; color: var(--light-text);
+}
+
+/* Right side — suggested amount chips */
+.panel-right {
+  background: var(--warm-gray);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+.panel-right h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase; color: var(--light-text);
+  margin-bottom: 14px;
+}
+.amount-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 16px;
+}
+.amount-chip {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 18px;
+  color: var(--dark);
+  transition: all 0.2s;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+.amount-chip:hover { border-color: var(--crimson); transform: translateY(-1px); }
+.amount-chip.selected {
+  background: var(--crimson); color: #fff; border-color: var(--crimson);
+  box-shadow: 0 8px 20px -6px rgba(217,58,58,0.4);
+}
+.amount-chip .impact {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px; font-weight: 500;
+  color: var(--light-text);
+  margin-top: 3px; letter-spacing: 0.2px;
+  text-transform: none;
+}
+.amount-chip.selected .impact { color: rgba(255,255,255,0.85); }
+.amount-chip.custom {
+  font-size: 14px; font-weight: 600;
+  color: var(--light-text); grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.amount-chip.custom input {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 16px;
+  background: transparent; border: none; outline: none;
+  color: var(--dark); width: 80px; text-align: center;
+  border-bottom: 1.5px dashed var(--border);
+}
+.amount-chip.custom input:focus { border-bottom-color: var(--crimson); }
+
+.benev-logo-row {
+  display: flex; align-items: center; gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--light-text);
+}
+.benev-id {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; color: var(--dark); font-size: 13px;
+  background: #fff; border: 1px solid var(--border);
+  padding: 6px 12px; border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ══════════════ IMPACT — WHERE YOUR DOLLARS GO ══════════════ */
+.impact-section {
+  padding: 36px 32px;
+  background: #fff;
+}
+.impact-inner { max-width: 1160px; margin: 0 auto; }
+.impact-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.impact-tile {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all var(--transition);
+  display: flex; flex-direction: column;
+  text-align: left;
+}
+.impact-tile:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217,58,58,0.3);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.impact-tile-photo {
+  width: 100%; height: 180px;
+  background-size: cover; background-position: center top;
+  transition: transform 0.4s;
+}
+.impact-tile:hover .impact-tile-photo { transform: scale(1.03); }
+.impact-tile-body {
+  padding: 22px 22px 26px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 8px; flex: 1;
+}
+.impact-tile h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--dark); margin: 0;
+  letter-spacing: normal;
+  line-height: 1.25;
+}
+.impact-tile p { font-size: 0.92rem; color: var(--light-text); line-height: 1.55; margin: 0; }
+.impact-tile-stat {
+  display: inline-flex; align-items: baseline; gap: 5px;
+  margin-top: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+}
+.impact-tile-stat .num { font-size: 1.35rem; color: var(--crimson); letter-spacing: -0.01em; }
+.impact-tile-stat .lbl { font-size: 0.72rem; color: var(--light-text); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ══════════════ OTHER WAYS TO GIVE ══════════════ */
+.other-ways {
+  padding: 36px 32px;
+  background: var(--dark);
+  color: #fff;
+  position: relative; overflow: hidden;
+}
+.other-ways::before {
+  content: '';
+  position: absolute; top: -150px; right: -150px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,58,58,0.08), transparent 70%);
+}
+.other-ways-inner { max-width: 1160px; margin: 0 auto; position: relative; z-index: 1; }
+.other-ways .section-header h2 { color: #fff; }
+.other-ways .section-header p { color: rgba(255,255,255,0.6); }
+
+.other-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.other-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 28px;
+  transition: all var(--transition);
+  display: flex; flex-direction: column;
+}
+.other-card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(217,58,58,0.3);
+  transform: translateY(-3px);
+}
+.other-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(217,58,58,0.15);
+  color: var(--crimson);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.other-icon svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; }
+.other-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: #fff; margin-bottom: 8px;
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+.other-card p {
+  font-size: 13.5px; color: rgba(255,255,255,0.6);
+  line-height: 1.65; margin-bottom: 18px; flex: 1;
+}
+.other-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600;
+  color: #fff;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  transition: color 0.2s;
+}
+.other-link:hover { color: var(--crimson); }
+.other-link svg { width: 14px; height: 14px; transition: transform 0.2s; }
+.other-link:hover svg { transform: translateX(2px); }
+
+/* ══════════════ VERIFICATION / TRUST BADGES ══════════════ */
+.trust {
+  padding: 36px 32px;
+  background: var(--warm-gray);
+}
+.trust-inner { max-width: 1160px; margin: 0 auto; }
+.trust-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.trust-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all var(--transition);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.trust-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+  border-color: rgba(217,58,58,0.3);
+}
+.trust-logo {
+  height: 44px; display: flex; align-items: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800; letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.trust-logo img {
+  max-height: 40px; max-width: 180px;
+  width: auto; height: auto;
+  object-fit: contain; display: block;
+}
+.trust-logo .irs { color: #0A3161; font-size: 18px; }
+.trust-card h4 {
+  font-size: 13px; font-weight: 700;
+  color: var(--dark); letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.trust-card p { font-size: 13px; color: var(--light-text); line-height: 1.5; flex: 1; }
+.trust-card .trust-meta {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; color: var(--dark); font-weight: 600;
+  padding: 6px 10px; background: var(--warm-gray);
+  border-radius: 8px; align-self: flex-start;
+  letter-spacing: 0.3px;
+}
+.trust-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--crimson);
+  transition: gap 0.2s;
+}
+.trust-link:hover { gap: 9px; }
+.trust-link svg { width: 13px; height: 13px; }
+
+.ein-strip {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; flex-wrap: wrap;
+  padding: 18px 24px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: 13.5px; color: var(--light-text);
+  text-align: center; margin: 0 auto;
+  max-width: fit-content;
+}
+.ein-strip strong { color: var(--dark); font-weight: 700; }
+.ein-chip {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; letter-spacing: 0.5px;
+  background: var(--warm-gray);
+  padding: 4px 12px; border-radius: 50px;
+  color: var(--dark);
+}
+
+/* ══════════════ FOOTER ══════════════ */
+/* Mirrors ps-combined.js footer pattern (simplified, matches homepage compact footer layout) */
+.footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.5);
+  padding: 56px 40px 32px;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.2fr repeat(3, 1fr);
+  gap: 40px 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand img {
+  height: 36px; width: auto; display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.9; margin-bottom: 14px;
+}
+.footer-brand p {
+  font-size: 13px; line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+  max-width: 300px;
+}
+.footer-brand p.footer-location {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 10px;
+  letter-spacing: 0.2px;
+}
+.footer-bottom-right {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.footer-bottom-right a {
+  font-size: 12px; color: rgba(255,255,255,0.55);
+  transition: color 0.2s;
+}
+.footer-bottom-right a:hover { color: #fff; }
+.footer-col h5 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: #fff; margin-bottom: 16px;
+}
+.footer-col a {
+  display: block;
+  font-size: 13.5px; color: rgba(255,255,255,0.55);
+  padding: 5px 0;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: #fff; }
+.footer-bottom {
+  max-width: 1200px; margin: 24px auto 0;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+  font-size: 12px; color: rgba(255,255,255,0.4);
+}
+.footer-socials { display: flex; gap: 14px; }
+.footer-socials a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.footer-socials a:hover { background: var(--crimson); }
+.footer-socials svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.7); }
+.footer-socials a:hover svg { fill: #fff; }
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media (max-width: 991px) {
+  .nav { padding: 16px !important; height: 64px !important; }
+  .nav-links, .nav-cta { display: none !important; }
+  .mobile-toggle { display: block; }
+
+  .hero { padding: 96px 24px 40px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .hero-visual { max-width: 440px; margin: 0 auto; }
+
+  .give-now, .impact-section, .other-ways, .trust {
+    padding-left: 20px; padding-right: 20px;
+  }
+  .give-panel.active { grid-template-columns: 1fr; gap: 24px; padding: 28px; }
+  .impact-grid, .other-grid { grid-template-columns: repeat(2, 1fr); }
+  .trust-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-trust { gap: 20px; flex-wrap: wrap; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 768px) {
+  /* Hero mirrors Download page mobile header: centered, tighter type */
+  .hero { padding: 96px 20px 36px; }
+  .hero-text { text-align: center; }
+  .hero h1 { font-size: 1.9rem; line-height: 1.15; }
+  .hero-sub { font-size: 1rem; max-width: 100%; margin-left: auto; margin-right: auto; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn-primary, .hero-actions .btn-ghost { justify-content: center; padding: 14px 24px; font-size: 14px; }
+  .hero-trust {
+    gap: 16px; margin-top: 24px; padding-top: 20px;
+    justify-content: center; text-align: center;
+  }
+  .hero-trust-stat { align-items: center; }
+  .hero-trust-stat .num { font-size: 1.2rem; }
+  .hero-trust-stat .lbl { font-size: 0.68rem; }
+
+  /* Hide "Rapidly Growing Community" impact card entirely on mobile */
+  .impact-card { display: none !important; }
+  .give-now, .impact-section, .other-ways, .trust { padding-top: 32px; padding-bottom: 32px; }
+  .section-header { margin-bottom: 20px; }
+  .section-header h2 { font-size: 26px; }
+  .section-header p { font-size: 14.5px; }
+
+  /* 3 donation tabs stay SIDE-BY-SIDE on mobile to reduce scroll */
+  .give-tabs { grid-template-columns: repeat(3, 1fr); padding: 4px; gap: 4px; margin-bottom: 10px; }
+  .give-tab { padding: 10px 6px; flex-direction: column; text-align: center; gap: 4px; }
+  .give-tab svg { margin: 0 auto; }
+  .give-tab-body { align-items: center; }
+  .tab-title { font-size: 13px; }
+  .tab-sub { display: none; }
+  .tab-pill { top: 4px; right: 4px; font-size: 9px; padding: 2px 6px; }
+
+  .give-panel.active { padding: 20px; }
+  .panel-left h3 { font-size: 22px; }
+  .amount-grid { gap: 8px; }
+  .amount-chip { padding: 12px 8px; font-size: 16px; }
+
+  /* Your Impact tiles: single column, CENTERED content on mobile */
+  .impact-grid { grid-template-columns: 1fr; }
+  .impact-tile { text-align: center; }
+  .impact-tile-body { align-items: center; }
+  .impact-tile-stat { justify-content: center; }
+
+  /* Beyond the usual cards: single column, CENTERED content + icon (Download page safety-card pattern) */
+  .other-grid { grid-template-columns: 1fr; }
+  .other-card { text-align: center; align-items: center; }
+  .other-icon { margin-left: auto; margin-right: auto; }
+  .other-link { align-self: center; }
+
+  /* Trust stays 2x2 */
+  .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .trust-card { padding: 20px; }
+  .trust-card h4 { font-size: 12px; }
+  .trust-card p { font-size: 12.5px; }
+
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px 20px; padding-bottom: 24px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+@media (max-width: 440px) {
+  .hero h1 { font-size: 1.75rem; }
+  .impact-stats { grid-template-columns: 1fr; }
+  .hero-trust { gap: 14px; }
+  .tab-title { font-size: 12px; }
+  .trust-grid { gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<div class="nav" id="nav">
+  <a class="nav-logo" href="https://www.pulseofp3.org" aria-label="Pulse of Perseverance Project">
+    <img src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b02f65f0068e9fb16f0df1_P3%20Logo.svg" alt="The Pulse of Perseverance Project">
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="https://www.pulseofp3.org/for-students">For Students</a>
+    <a href="https://www.pulseofp3.org/partner">For Institutions</a>
+    <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+    <a href="https://www.pulseofp3.org/about/about">About</a>
+  </div>
+  <a href="https://www.pulseofp3.org/download" class="nav-cta">Get the App</a>
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- Mobile overlay -->
+<div class="mob-overlay" id="mobOverlay">
+  <a href="https://www.pulseofp3.org">Home</a>
+  <a href="https://www.pulseofp3.org/for-students">For Students</a>
+  <a href="https://www.pulseofp3.org/partner">For Institutions</a>
+  <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+  <a href="https://www.pulseofp3.org/about/about">About</a>
+  <a href="https://www.pulseofp3.org/download" class="mob-cta">Get the App</a>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Fuel the next<br><span class="accent">young visionary.</span></h1>
+      <p class="hero-sub">Your gift fuels P3 &mdash; the mobile-first career accelerator connecting underserved students with mentors, scholarships, and workforce opportunities through AI-powered smart matching.</p>
+      <div class="hero-actions">
+        <a href="https://kindest.com/the-pulse-of-perseverance" target="_blank" rel="noopener" class="btn-primary">
+          Give Now
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#give-now" class="btn-ghost">See all ways to give</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-stat">
+          <div class="num">100%</div>
+          <div class="lbl">Tax-deductible</div>
+        </div>
+        <div class="hero-trust-stat">
+          <div class="num">$100K+</div>
+          <div class="lbl">In monthly scholarships</div>
+        </div>
+        <div class="hero-trust-stat">
+          <div class="num">501(c)(3)</div>
+          <div class="lbl">Candid &amp; CN verified</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="impact-card">
+        <h3>Rapidly <span class="accent">Growing</span> Community.</h3>
+        <p>Help us reach 3,000 students by December.</p>
+        <div class="impact-stats">
+          <div class="impact-stat">
+            <div class="num">850<span class="unit">+</span></div>
+            <div class="lbl">Mentees active on the app</div>
+          </div>
+          <div class="impact-stat">
+            <div class="num">150<span class="unit">+</span></div>
+            <div class="lbl">Professional mentors</div>
+          </div>
+          <div class="impact-stat">
+            <div class="num">12<span class="unit">+</span></div>
+            <div class="lbl">Annual Scholarships</div>
+          </div>
+          <div class="impact-stat">
+            <div class="num">94<span class="unit">%</span></div>
+            <div class="lbl">Program retention rate</div>
+          </div>
+        </div>
+        <div class="impact-progress">
+          <div class="impact-progress-row">
+            <span>Path to 3,000 students</span>
+            <strong>1,000 / 3,000</strong>
+          </div>
+          <div class="impact-track"><div class="impact-fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GIVE NOW — PAYMENT SELECTOR ═══════════════ -->
+<section class="give-now" id="give-now">
+  <div class="give-inner">
+    <div class="section-header">
+      <span class="section-tag tag-crimson">Donations</span>
+      <h2>Choose how you'd like to <span class="accent">give</span>.</h2>
+      <p>Sleek, secure, and tax-deductible. Pick the platform that works best for you — every path goes to the same mission.</p>
+    </div>
+
+    <!-- Payment-selector tabs -->
+    <div class="give-tabs" role="tablist">
+      <button class="give-tab active" data-tab="monthly" role="tab" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.4 0 4.6.9 6.2 2.5"/><polyline points="21 3 21 9 15 9"/></svg>
+        <span class="give-tab-body">
+          <span class="tab-title">Monthly</span>
+          <span class="tab-sub">Donorbox · recurring</span>
+        </span>
+        <span class="tab-pill">Most popular</span>
+      </button>
+      <button class="give-tab" data-tab="onetime" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="give-tab-body">
+          <span class="tab-title">One-time</span>
+          <span class="tab-sub">Kindest · secure</span>
+        </span>
+      </button>
+      <button class="give-tab" data-tab="workplace" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M12 11v6M9 14h6"/></svg>
+        <span class="give-tab-body">
+          <span class="tab-title">Workplace</span>
+          <span class="tab-sub">Benevity · matched</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Panel: Monthly (Donorbox) -->
+    <div class="give-panel active" id="panel-monthly">
+      <div class="panel-left">
+        <h3>Join the <span class="accent">P3 Power Circle</span>.</h3>
+        <p class="lede">Sustained monthly giving is the most powerful kind of support. Power Circle members fund the monthly scholarships, mentor vetting, and platform infrastructure that turn potential into workforce-ready outcomes.</p>
+        <div class="panel-bullets">
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Tax-deductible receipt every month</span>
+          </div>
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Pause, change, or cancel anytime</span>
+          </div>
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Quarterly impact reports from the field</span>
+          </div>
+        </div>
+        <a href="https://donorbox.org/pulseofp3-monthly-scholarship-fund?default_interval=m&amount=25" target="_blank" rel="noopener" class="panel-cta"
+           data-cta-base="https://donorbox.org/pulseofp3-monthly-scholarship-fund?default_interval=m" data-cta="monthly">
+          <span class="cta-text">Give <span class="cta-amount">$25</span>/mo on Donorbox</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="panel-meta">Powered by Donorbox · Apple Pay &amp; Google Pay supported</div>
+      </div>
+      <div class="panel-right">
+        <h4>Suggested monthly gift</h4>
+        <div class="amount-grid" data-panel="monthly">
+          <button type="button" class="amount-chip" data-amount="10">
+            $10
+            <span class="impact">Sends app nudges for 1 mentee</span>
+          </button>
+          <button type="button" class="amount-chip selected" data-amount="25">
+            $25
+            <span class="impact">Funds one monthly scholarship entry</span>
+          </button>
+          <button type="button" class="amount-chip" data-amount="50">
+            $50
+            <span class="impact">Matches a mentor to a mentee</span>
+          </button>
+          <button type="button" class="amount-chip" data-amount="100">
+            $100
+            <span class="impact">Underwrites an HBCU cohort tile</span>
+          </button>
+          <label class="amount-chip custom">
+            Custom: $<input type="number" min="1" step="1" placeholder="Other" data-custom="monthly">
+          </label>
+        </div>
+        <div class="benev-logo-row">
+          <span>Your first gift unlocks a personal welcome from Dr. Maxime Madhere, our CEO.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: One-time (Kindest) -->
+    <div class="give-panel" id="panel-onetime">
+      <div class="panel-left">
+        <h3>Make a <span class="accent">one-time gift</span>.</h3>
+        <p class="lede">Fast, secure, and flexible. A one-time donation powers monthly scholarships for visionary students, expands our mentor bench, and keeps the P3 app free for the 850+ mentees who rely on it.</p>
+        <div class="panel-bullets">
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Card, Apple Pay, Google Pay, bank transfer, crypto</span>
+          </div>
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Instant tax-deductible receipt by email</span>
+          </div>
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Option to dedicate your gift in honor of someone</span>
+          </div>
+        </div>
+        <a href="https://kindest.com/the-pulse-of-perseverance?amount=250" target="_blank" rel="noopener" class="panel-cta"
+           data-cta-base="https://kindest.com/the-pulse-of-perseverance" data-cta="onetime">
+          <span class="cta-text">Donate <span class="cta-amount">$250</span> on Kindest</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="panel-meta">Powered by Kindest · 0% platform fee</div>
+      </div>
+      <div class="panel-right">
+        <h4>Suggested one-time gift</h4>
+        <div class="amount-grid" data-panel="onetime">
+          <button type="button" class="amount-chip" data-amount="50">
+            $50
+            <span class="impact">Onboards 2 new mentees</span>
+          </button>
+          <button type="button" class="amount-chip" data-amount="100">
+            $100
+            <span class="impact">One monthly scholarship award</span>
+          </button>
+          <button type="button" class="amount-chip selected" data-amount="250">
+            $250
+            <span class="impact">Mentor vetting + match cycle</span>
+          </button>
+          <button type="button" class="amount-chip" data-amount="1000">
+            $1,000
+            <span class="impact">Sponsors a school pathway for a year</span>
+          </button>
+          <label class="amount-chip custom">
+            Custom: $<input type="number" min="1" step="1" placeholder="Other" data-custom="onetime">
+          </label>
+        </div>
+        <div class="benev-logo-row">
+          <span>Gifts over $250 receive a handwritten thank-you from the mentee community.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Workplace (Benevity) -->
+    <div class="give-panel" id="panel-workplace">
+      <div class="panel-left">
+        <h3>Give through your <span class="accent">workplace</span>.</h3>
+        <p class="lede">Many employers — Google, Microsoft, Salesforce, and thousands more — match employee donations 1:1 or even 2:1 through Benevity. Find Pulse of Perseverance in your company's giving portal and double (or triple) your impact.</p>
+        <div class="panel-bullets">
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Corporate matching — often 1:1 or higher</span>
+          </div>
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Payroll deduction — set it and forget it</span>
+          </div>
+          <div class="panel-bullet">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Volunteer Time Off (VTO) rewards convertible to grants</span>
+          </div>
+        </div>
+        <a href="mailto:thomas@pulseofp3.org?subject=Workplace%20Giving%20%E2%80%94%20P3%20Match" class="panel-cta">
+          Get help setting this up
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="panel-meta">Powered by Benevity · Available in 20,000+ company giving portals</div>
+      </div>
+      <div class="panel-right">
+        <h4>Search us in your portal</h4>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+          <div style="font-size:13px;color:var(--light-text);line-height:1.55">Search for <strong style="color:var(--dark)">Pulse of Perseverance Project</strong> or paste our unique identifier below:</div>
+          <div class="benev-id" style="text-align:center;padding:14px;font-size:15px">
+            EIN · 82-3649154
+          </div>
+          <div style="font-size:12px;color:var(--light-text);text-align:center;margin-top:4px">Chicago, IL · 501(c)(3) nonprofit</div>
+        </div>
+        <div class="benev-logo-row" style="justify-content:space-between">
+          <span style="flex:1">Company not listed?</span>
+          <a href="mailto:thomas@pulseofp3.org" style="color:var(--crimson);font-weight:600;font-size:12.5px">We'll help →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ IMPACT — WHERE DOLLARS GO ═══════════════ -->
+<section class="impact-section">
+  <div class="impact-inner">
+    <div class="section-header">
+      <span class="section-tag tag-crimson">Your Impact</span>
+      <h2>Where every dollar <span class="accent">goes to work</span>.</h2>
+      <p>89¢ of every dollar funds programs. Here's the breakdown, in plain English.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-tile">
+        <div class="impact-tile-photo" style="background-image:url('Scholarships.jpg')"></div>
+        <div class="impact-tile-body">
+          <h3>Monthly Scholarships</h3>
+          <p>Every month, we award scholarships directly to students through the P3 app — no essay gatekeeping, just opportunity.</p>
+          <div class="impact-tile-stat"><span class="num">12+</span> <span class="lbl">awarded annually</span></div>
+        </div>
+      </div>
+      <div class="impact-tile">
+        <div class="impact-tile-photo" style="background-image:url('Matching.jpg')"></div>
+        <div class="impact-tile-body">
+          <h3>Mentor Matching</h3>
+          <p>Your gift covers the vetting, onboarding, and AI-powered smart matching of professional mentors to mentees who need them.</p>
+          <div class="impact-tile-stat"><span class="num">1,000<span class="unit">+</span></span> <span class="lbl">users matched</span></div>
+        </div>
+      </div>
+      <div class="impact-tile">
+        <div class="impact-tile-photo" style="background-image:url('Mobile-app.jpg'); background-position: center center;"></div>
+        <div class="impact-tile-body">
+          <h3>App Infrastructure</h3>
+          <p>The P3 app stays free and forever will. Servers, security, and engineering make the mission run — and your gift keeps it up.</p>
+          <div class="impact-tile-stat"><span class="num">100%</span> <span class="lbl">free for students</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TRUST / VERIFICATION ═══════════════ -->
+<section class="trust">
+  <div class="trust-inner">
+    <div class="section-header">
+      <span class="section-tag tag-dark">Verified &amp; Transparent</span>
+      <h2>Your trust, <span class="accent">independently verified</span>.</h2>
+      <p>P3 is a registered 501(c)(3) nonprofit with full transparency across the sector's major accountability platforms.</p>
+    </div>
+    <div class="trust-grid">
+      <a class="trust-card" href="https://www.charitynavigator.org/ein/823649154" target="_blank" rel="noopener">
+        <div class="trust-logo"><img src="Charity-Navigator.png" alt="Charity Navigator" loading="lazy"></div>
+        <h4>Charity Navigator</h4>
+        <p>America's largest independent charity evaluator. Our full profile, rating, and financial transparency live here.</p>
+        <span class="trust-link">View profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </a>
+      <a class="trust-card" href="https://app.candid.org/profile/9676735/pulse-of-perseverance-82-3649154" target="_blank" rel="noopener">
+        <div class="trust-logo"><img src="Candid-GuideStar.png" alt="Candid GuideStar" loading="lazy"></div>
+        <h4>Candid (GuideStar)</h4>
+        <p>The gold standard for nonprofit transparency. See our 990, governance, and program data in full detail.</p>
+        <span class="trust-link">View profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+      </a>
+      <a class="trust-card" href="mailto:thomas@pulseofp3.org?subject=Benevity%20Workplace%20Giving" rel="noopener">
+        <div class="trust-logo"><img src="Benevity.png" alt="Benevity" loading="lazy"></div>
+        <h4>Benevity Workplace</h4>
+        <p>Accessible through 20,000+ corporate giving portals. Unique identifier: 82-3649154. We'll help you find us.</p>
+        <span class="trust-meta">ID · 82-3649154</span>
+      </a>
+      <div class="trust-card">
+        <div class="trust-logo"><span class="irs">IRS 501(c)(3)</span></div>
+        <h4>Federal Tax-Exempt</h4>
+        <p>Your donations are fully tax-deductible to the extent allowed by law. Receipts issued on every gift.</p>
+        <span class="trust-meta">EIN · 82-3649154</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ OTHER WAYS TO GIVE ═══════════════ -->
+<section class="other-ways">
+  <div class="other-ways-inner">
+    <div class="section-header">
+      <span class="section-tag tag-light">Beyond the usual</span>
+      <h2>Other <span class="accent" style="color:var(--crimson)">ways to give</span>.</h2>
+      <p>For donors who want to build something lasting — or multiply their impact through partnership.</p>
+    </div>
+    <div class="other-grid">
+      <div class="other-card">
+        <div class="other-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L15 8.5 22 9.5 17 14.5 18 21.5 12 18 6 21.5 7 14.5 2 9.5 9 8.5 12 2z"/></svg>
+        </div>
+        <h3>Named Scholarships</h3>
+        <p>Fund a named award in perpetuity. Your legacy, a mentee's launchpad. Starting at $5,000 per scholarship year.</p>
+        <a href="mailto:thomas@pulseofp3.org?subject=Named%20Scholarship%20Inquiry" class="other-link">
+          Start the conversation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="other-card">
+        <div class="other-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Legacy &amp; Planned Giving</h3>
+        <p>Include P3 in your will, trust, or donor-advised fund. We'll work with your financial advisor to structure impact that outlasts you.</p>
+        <a href="mailto:thomas@pulseofp3.org?subject=Legacy%20Giving%20Inquiry" class="other-link">
+          Request planning guide
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="other-card">
+        <div class="other-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Corporate Partnerships</h3>
+        <p>Stock gifts, multi-year sponsorships, cause-marketing campaigns, and CSR co-branding. Let's build something big together.</p>
+        <a href="mailto:alex@pulseofp3.org?subject=Corporate%20Partnership%20Inquiry" class="other-link">
+          Talk to our CRO
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b02f65f0068e9fb16f0df1_P3%20Logo.svg" alt="Pulse of Perseverance Project">
+      <p>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
+      <p class="footer-location">Chicago, IL · Founded 2018</p>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <a href="https://www.pulseofp3.org/for-students">For Students</a>
+      <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+      <a href="https://www.pulseofp3.org/partner">For Institutions</a>
+      <a href="https://www.pulseofp3.org/scholarships">Scholarships</a>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <a href="https://www.pulseofp3.org/about/about">Our Story</a>
+      <a href="https://www.pulseofp3.org/about/about#team">Team</a>
+      <a href="https://www.pulseofp3.org/about/annual-report">Annual Report</a>
+      <a href="https://www.pulseofp3.org/about/in-the-press">Press</a>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <a href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.linkedin.com/company/pulseofperserverance/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/@pulseofperseverance" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.pulseofp3.org/donate">Donate</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Pulse of Perseverance Project. All rights reserved.</div>
+    <div class="footer-bottom-right">
+      <a href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/theofficialpulseofp3/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg></a>
+        <a href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+        <a href="https://www.linkedin.com/company/pulseofperserverance/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+        <a href="https://www.youtube.com/@pulseofperseverance" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll darken
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Mobile menu toggle
+const mobToggle = document.getElementById('mobileToggle');
+const mobOverlay = document.getElementById('mobOverlay');
+mobToggle.addEventListener('click', () => {
+  mobToggle.classList.toggle('open');
+  mobOverlay.classList.toggle('open');
+  document.body.style.overflow = mobOverlay.classList.contains('open') ? 'hidden' : '';
+});
+mobOverlay.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobToggle.classList.remove('open');
+    mobOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Give tabs
+const tabs = document.querySelectorAll('.give-tab');
+const panels = document.querySelectorAll('.give-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const key = tab.dataset.tab;
+    tabs.forEach(t => {
+      const active = t.dataset.tab === key;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + key);
+    });
+  });
+});
+
+// Amount chip selection → drive CTA URL + label
+function updateCta(panelKey, amount) {
+  amount = parseInt(amount, 10);
+  if (!amount || amount < 1) return;
+  const cta = document.querySelector(`.panel-cta[data-cta="${panelKey}"]`);
+  if (!cta) return;
+  const base = cta.getAttribute('data-cta-base');
+  // Donorbox uses &amount=, Kindest uses ?amount= (base already has or lacks query string)
+  const joiner = base.includes('?') ? '&' : '?';
+  cta.href = `${base}${joiner}amount=${amount}`;
+  const label = cta.querySelector('.cta-amount');
+  if (label) label.textContent = `$${amount}`;
+}
+
+document.querySelectorAll('.amount-grid').forEach(grid => {
+  const panelKey = grid.dataset.panel;
+  const chips = grid.querySelectorAll('.amount-chip');
+  const customInput = grid.querySelector('.amount-chip.custom input');
+
+  chips.forEach(chip => {
+    // Preset chips (buttons with data-amount)
+    if (chip.tagName === 'BUTTON' && chip.dataset.amount) {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        if (customInput) customInput.value = '';
+        updateCta(panelKey, chip.dataset.amount);
+      });
+    }
+  });
+
+  if (customInput) {
+    const customLabel = customInput.closest('.amount-chip.custom');
+    customInput.addEventListener('focus', () => {
+      chips.forEach(c => c.classList.remove('selected'));
+      customLabel.classList.add('selected');
+    });
+    customInput.addEventListener('input', () => {
+      const v = parseInt(customInput.value, 10);
+      if (v && v > 0) {
+        chips.forEach(c => c.classList.remove('selected'));
+        customLabel.classList.add('selected');
+        updateCta(panelKey, v);
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
