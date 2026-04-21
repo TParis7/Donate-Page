@@ -585,6 +585,106 @@ ul { list-style: none; }
 .impact-tile-stat .num { font-size: 1.35rem; color: var(--crimson); letter-spacing: -0.01em; }
 .impact-tile-stat .lbl { font-size: 0.72rem; color: var(--light-text); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
+/* ══════════════ PATRONS WALL ══════════════ */
+.patrons {
+  padding: 44px 32px 48px;
+  background: linear-gradient(180deg, #FCF9F7 0%, #FFFFFF 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.patrons-inner { max-width: 1060px; margin: 0 auto; }
+.patrons-stack {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-top: 6px;
+}
+.patron-tier {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 28px;
+  padding: 22px 26px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  align-items: start;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.patron-tier:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+/* Tier-specific subtle backgrounds (warm palette: crimson → gold → tan) */
+.patron-tier.tier-founders {
+  background: linear-gradient(135deg, rgba(217,58,58,0.06) 0%, #fff 65%);
+  border-color: rgba(217,58,58,0.22);
+}
+.patron-tier.tier-champions {
+  background: linear-gradient(135deg, rgba(201,149,55,0.06) 0%, #fff 65%);
+  border-color: rgba(201,149,55,0.22);
+}
+.patron-tier.tier-visionaries {
+  background: linear-gradient(135deg, rgba(166,140,106,0.05) 0%, #fff 65%);
+  border-color: rgba(166,140,106,0.2);
+}
+.tier-head { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+/* Tier icon — mirrors .other-icon style (44×44, rounded 12px, 22×22 SVG stroke) */
+.patron-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+}
+.patron-icon svg {
+  width: 20px; height: 20px;
+  stroke: currentColor; stroke-width: 2;
+  fill: none;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.patron-tier.tier-founders   .patron-icon { background: rgba(217,58,58,0.13); color: var(--crimson); }
+.patron-tier.tier-champions  .patron-icon { background: rgba(201,149,55,0.14); color: #B8862E; }
+.patron-tier.tier-visionaries .patron-icon { background: rgba(166,140,106,0.15); color: #8F7857; }
+.tier-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--dark);
+  line-height: 1.2;
+}
+.patron-tier.tier-founders .tier-name { color: var(--crimson); }
+.patron-tier.tier-champions .tier-name { color: #B8862E; }
+.patron-tier.tier-visionaries .tier-name { color: #8F7857; }
+.tier-amt {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600;
+  color: var(--light-text);
+  letter-spacing: 0.6px; text-transform: uppercase;
+}
+.tier-names {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--dark);
+  line-height: 1.9;
+  letter-spacing: 0;
+}
+.tier-names .patron { white-space: nowrap; }
+.tier-names .sep {
+  color: var(--crimson);
+  opacity: 0.45;
+  margin: 0 9px;
+  font-weight: 600;
+}
+.patrons-cta {
+  margin-top: 22px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--light-text);
+}
+.patrons-cta a {
+  color: var(--crimson);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(217,58,58,0.3);
+  transition: border-color 0.2s;
+}
+.patrons-cta a:hover { border-bottom-color: var(--crimson); }
+
 /* ══════════════ OTHER WAYS TO GIVE ══════════════ */
 .other-ways {
   padding: 36px 32px;
@@ -834,7 +934,18 @@ ul { list-style: none; }
 
   /* Hide "Rapidly Growing Community" impact card entirely on mobile */
   .impact-card { display: none !important; }
-  .give-now, .impact-section, .other-ways, .trust { padding-top: 32px; padding-bottom: 32px; }
+  .give-now, .impact-section, .other-ways, .trust, .patrons { padding-top: 32px; padding-bottom: 32px; }
+  .patrons { padding-left: 20px; padding-right: 20px; }
+  .patron-tier {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 18px 18px 20px;
+    text-align: center;
+  }
+  .tier-head { align-items: center; }
+  .tier-names { font-size: 0.9rem; line-height: 1.85; text-align: center; }
+  .tier-names .sep { margin: 0 7px; }
+  .patron-icon { margin-left: auto; margin-right: auto; }
   .section-header { margin-bottom: 20px; }
   .section-header h2 { font-size: 26px; }
   .section-header p { font-size: 14.5px; }
@@ -1198,6 +1309,79 @@ ul { list-style: none; }
           <div class="impact-tile-stat"><span class="num">100%</span> <span class="lbl">free for students</span></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PATRONS WALL ═══════════════ -->
+<section class="patrons" id="patrons">
+  <div class="patrons-inner">
+    <div class="section-header">
+      <span class="section-tag tag-crimson">Patrons Wall</span>
+      <h2>Built with <span class="accent">changemakers like these</span>.</h2>
+      <p>Every mentor match, milestone, and scholarship happens because of them.</p>
+    </div>
+
+    <div class="patrons-stack">
+
+      <!-- Founders Circle -->
+      <div class="patron-tier tier-founders">
+        <div class="tier-head">
+          <div class="patron-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 7l4 4 5-7 5 7 4-4v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7z"/>
+              <line x1="3" y1="19" x2="21" y2="19"/>
+            </svg>
+          </div>
+          <span class="tier-name">Founders Circle</span>
+          <span class="tier-amt">$5,000+</span>
+        </div>
+        <div class="tier-names">
+          <span class="patron">Michelle Browder</span> <span class="sep">·</span> <span class="patron">Lauren Cox</span> <span class="sep">·</span> <span class="patron">Tondra Taylor</span> <span class="sep">·</span> <span class="patron">Aubrey Thompson</span>
+        </div>
+      </div>
+
+      <!-- P3 Champions -->
+      <div class="patron-tier tier-champions">
+        <div class="tier-head">
+          <div class="patron-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+            </svg>
+          </div>
+          <span class="tier-name">P3 Champions</span>
+          <span class="tier-amt">$1,000+</span>
+        </div>
+        <div class="tier-names">
+          <span class="patron">Ronald Andrews</span> <span class="sep">·</span> <span class="patron">Paulette Barrett</span> <span class="sep">·</span> <span class="patron">Darius Bonton</span> <span class="sep">·</span> <span class="patron">Walter Bringaze</span> <span class="sep">·</span> <span class="patron">Grant Chavin</span> <span class="sep">·</span> <span class="patron">Quanita Crable</span> <span class="sep">·</span> <span class="patron">Stephanie Easton</span> <span class="sep">·</span> <span class="patron">Ajaji Jackson</span> <span class="sep">·</span> <span class="patron">Steffen Lewis</span> <span class="sep">·</span> <span class="patron">Kiyan Mehdizadeh</span> <span class="sep">·</span> <span class="patron">Geoffrey Mount Varner</span> <span class="sep">·</span> <span class="patron">Teshona Nathaniel</span> <span class="sep">·</span> <span class="patron">Muddassir Sana</span> <span class="sep">·</span> <span class="patron">Matthew Valliere</span> <span class="sep">·</span> <span class="patron">Wendell Wilkins</span> <span class="sep">·</span> <span class="patron">Chris Williams</span>
+        </div>
+      </div>
+
+      <!-- Visionaries -->
+      <div class="patron-tier tier-visionaries">
+        <div class="tier-head">
+          <div class="patron-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <span class="tier-name">Visionaries</span>
+          <span class="tier-amt">$500+</span>
+        </div>
+        <div class="tier-names">
+          <span class="patron">Donald Carson</span> <span class="sep">·</span> <span class="patron">Miangel Cody</span> <span class="sep">·</span> <span class="patron">Michael Conners</span> <span class="sep">·</span> <span class="patron">Edward Gleason</span> <span class="sep">·</span> <span class="patron">Kristal J.</span> <span class="sep">·</span> <span class="patron">June Jesunathadas</span> <span class="sep">·</span> <span class="patron">Cre Johnson</span> <span class="sep">·</span> <span class="patron">Greg Madhere</span> <span class="sep">·</span> <span class="patron">Anthony Owusu</span> <span class="sep">·</span> <span class="patron">Aldric Pace</span> <span class="sep">·</span> <span class="patron">Carol Pate</span> <span class="sep">·</span> <span class="patron">Renita Rhodes</span> <span class="sep">·</span> <span class="patron">Ernst Robinson</span> <span class="sep">·</span> <span class="patron">Kaneda Sercye</span> <span class="sep">·</span> <span class="patron">Leah Simmons</span> <span class="sep">·</span> <span class="patron">Sharis Steib</span> <span class="sep">·</span> <span class="patron">Christopher Tyson</span> <span class="sep">·</span> <span class="patron">James A. Washington III</span> <span class="sep">·</span> <span class="patron">Parker (Matt) Word</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="patrons-cta">
+      Want your name here? <a href="#give-now">Become a patron with $500+ →</a>
     </div>
   </div>
 </section>
