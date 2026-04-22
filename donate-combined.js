@@ -7,9 +7,13 @@
      CSS scoped with --dn- prefix vars.
      Source HTML: /Website Folder/Donate Page/index.html
      Mockup:      https://tparis7.github.io/Donate-Page/
-     Payments:    Monthly → Kindest (?amount=X&frequency=monthly)
-                  One-time → Kindest (?amount=X)
+     Payments:    Monthly → Kindest (?donation=1&frequency=monthly&amount=X)
+                  One-time → Kindest (?donation=1&amount=X)
                   Workplace → Benevity (mailto:)
+                  NOTE: Kindest's donation page ignores amount params (only reads
+                  ?donation=1 to auto-open the modal). The amount chip selection
+                  still drives the URL for analytics + UX continuity, but the
+                  donor re-enters the amount on Kindest's checkout.
      ══════════════════════════════════════════════════════════════ */
 
   // Guard against double execution
@@ -211,7 +215,10 @@ html.dn-active { scroll-behavior: smooth; }
 /* ═══════════ HERO ═══════════ */
 #dn-root .dn-hero {
   position: relative;
-  padding: 100px 48px 40px;
+  padding: 100px 0 40px;
+  min-height: 550px;
+  display: flex;
+  align-items: center;
   background:
     radial-gradient(ellipse 60% 50% at 20% 40%, rgba(217,58,58,0.18), transparent 60%),
     radial-gradient(ellipse 50% 60% at 85% 70%, rgba(74,16,32,0.4), transparent 65%),
@@ -229,7 +236,9 @@ html.dn-active { scroll-behavior: smooth; }
   pointer-events: none;
 }
 #dn-root .dn-hero-inner {
-  max-width: 1160px; margin: 0 auto;
+  width: 100%;
+  max-width: 1180px; margin: 0 auto;
+  padding: 0 24px;
   display: grid; grid-template-columns: 1.1fr 1fr;
   gap: 56px; align-items: center;
   position: relative; z-index: 2;
@@ -452,7 +461,7 @@ html.dn-active { scroll-behavior: smooth; }
   box-shadow: var(--dn-shadow-card);
   animation: dnPanelIn 0.4s ease;
 }
-#dn-root .dn-give-panel.dn-active { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; }
+#dn-root .dn-give-panel.dn-active { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: start; }
 @keyframes dnPanelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 #dn-root .dn-panel-left h3 {
@@ -817,69 +826,64 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-trust-link:hover { gap: 9px; }
 #dn-root .dn-trust-link svg { width: 13px; height: 13px; }
 
-/* ══════════════ FOOTER ══════════════ */
+/* ══════════════ FOOTER (mirrors homepage .p3-footer) ══════════════ */
 #dn-root .dn-footer {
-  background: var(--dn-dark);
+  background: #0A0A0A;
   color: rgba(255,255,255,0.5);
-  padding: 56px 40px 32px;
+  padding: 64px 40px 32px;
+  font-family: 'Inter', sans-serif;
 }
 #dn-root .dn-footer-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; grid-template-columns: 1.2fr repeat(3, 1fr);
-  gap: 40px 32px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
 }
 #dn-root .dn-footer-brand img {
   height: 36px; width: auto; display: block;
   filter: brightness(0) invert(1);
-  opacity: 0.9; margin-bottom: 14px;
+  opacity: 0.8; margin-bottom: 12px;
 }
-#dn-root .dn-footer-brand p {
-  font-size: 13px; line-height: 1.65;
-  color: rgba(255,255,255,0.45);
-  max-width: 300px;
+#dn-root .dn-footer-brand p.dn-footer-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; line-height: 1.6;
+  color: rgba(255,255,255,0.5);
+  max-width: 280px;
+  margin: 0;
 }
 #dn-root .dn-footer-brand p.dn-footer-location {
-  font-size: 12px; color: rgba(255,255,255,0.35);
-  margin-top: 10px; letter-spacing: 0.2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; line-height: 1.6;
+  color: rgba(255,255,255,0.5);
+  max-width: 280px;
+  margin: 6px 0 0;
 }
-#dn-root .dn-footer-bottom-right {
-  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-}
-#dn-root .dn-footer-bottom-right a {
-  font-size: 12px; color: rgba(255,255,255,0.55);
-  transition: color 0.2s;
-}
-#dn-root .dn-footer-bottom-right a:hover { color: #fff; }
 #dn-root .dn-footer-col h5 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px; font-weight: 700;
-  letter-spacing: 1px; text-transform: uppercase;
-  color: #fff; margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.8); margin-bottom: 14px;
 }
 #dn-root .dn-footer-col a {
   display: block;
-  font-size: 13.5px; color: rgba(255,255,255,0.55);
-  padding: 5px 0; transition: color 0.2s;
+  font-family: 'Inter', sans-serif;
+  font-size: 13; color: rgba(255,255,255,0.6);
+  padding: 4px 0; transition: color 0.2s;
+  font-weight: 400;
 }
+#dn-root .dn-footer-col a { font-size: 13px; }
 #dn-root .dn-footer-col a:hover { color: #fff; }
 #dn-root .dn-footer-bottom {
-  max-width: 1200px; margin: 24px auto 0;
+  max-width: 1200px; margin: 32px auto 0;
+  padding: 0 20px;
   display: flex; justify-content: space-between;
   align-items: center; flex-wrap: wrap; gap: 16px;
   font-size: 12px; color: rgba(255,255,255,0.4);
 }
-#dn-root .dn-footer-socials { display: flex; gap: 14px; }
-#dn-root .dn-footer-socials a {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
+#dn-root .dn-footer-bottom a {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+  transition: color 0.2s;
 }
-#dn-root .dn-footer-socials a:hover { background: var(--dn-crimson); }
-#dn-root .dn-footer-socials svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.7); }
-#dn-root .dn-footer-socials a:hover svg { fill: #fff; }
+#dn-root .dn-footer-bottom a:hover { color: #fff; }
 
 /* ══════════════ RESPONSIVE ══════════════ */
 @media (max-width: 991px) {
@@ -901,21 +905,22 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-hero-trust { gap: 20px; flex-wrap: wrap; }
   #dn-root .dn-footer-inner { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
   #dn-root .dn-footer-brand { grid-column: 1 / -1; }
+  #dn-root .dn-footer-brand p.dn-footer-tagline, #dn-root .dn-footer-brand p.dn-footer-location { max-width: 100%; }
 }
 @media (max-width: 768px) {
-  #dn-root .dn-hero { padding: 96px 20px 36px; }
+  #dn-root .dn-hero { padding: 96px 20px 36px; min-height: 0; }
   #dn-root .dn-hero-text { text-align: center; }
-  #dn-root .dn-hero h1 { font-size: 1.9rem; line-height: 1.15; }
-  #dn-root .dn-hero-sub { font-size: 1rem; max-width: 100%; margin-left: auto; margin-right: auto; }
+  #dn-root .dn-hero h1 { font-size: 1.75rem; line-height: 1.15; letter-spacing: -0.01em; }
+  #dn-root .dn-hero-sub { font-size: 0.95rem; max-width: 100%; margin-left: auto; margin-right: auto; line-height: 1.6; }
   #dn-root .dn-hero-actions { flex-direction: column; align-items: stretch; }
   #dn-root .dn-hero-actions .dn-btn-primary, #dn-root .dn-hero-actions .dn-btn-ghost { justify-content: center; padding: 14px 24px; font-size: 14px; }
   #dn-root .dn-hero-trust {
-    gap: 16px; margin-top: 24px; padding-top: 20px;
+    gap: 18px; margin-top: 26px; padding-top: 22px;
     justify-content: center; text-align: center;
   }
   #dn-root .dn-hero-trust-stat { align-items: center; }
-  #dn-root .dn-hero-trust-stat .dn-num { font-size: 1.2rem; }
-  #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.68rem; }
+  #dn-root .dn-hero-trust-stat .dn-num { font-size: 1.4rem; letter-spacing: -0.01em; }
+  #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.7rem; letter-spacing: 0.3px; }
 
   #dn-root .dn-impact-card { display: none !important; }
   #dn-root .dn-give-now, #dn-root .dn-impact-section, #dn-root .dn-other-ways, #dn-root .dn-trust, #dn-root .dn-patrons {
@@ -962,12 +967,19 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-trust-card h4 { font-size: 12px; }
   #dn-root .dn-trust-card p { font-size: 12.5px; }
 
-  #dn-root .dn-footer-inner { grid-template-columns: 1fr 1fr; gap: 28px 20px; padding-bottom: 24px; }
-  #dn-root .dn-footer-brand { grid-column: 1 / -1; }
-  #dn-root .dn-footer-bottom { flex-direction: column; text-align: center; }
+  #dn-root .dn-footer { padding: 40px 20px 24px; }
+  #dn-root .dn-footer-inner { grid-template-columns: 1fr; gap: 28px; }
+  #dn-root .dn-footer-brand { grid-column: auto; }
+  #dn-root .dn-footer-bottom { flex-direction: column; text-align: center; gap: 8px; margin-top: 24px; }
+}
+@media (max-width: 600px) {
+  #dn-root .dn-footer-brand img { height: 24px; }
 }
 @media (max-width: 440px) {
-  #dn-root .dn-hero h1 { font-size: 1.75rem; }
+  #dn-root .dn-hero h1 { font-size: 1.5rem; line-height: 1.2; }
+  #dn-root .dn-hero-sub { font-size: 0.9rem; }
+  #dn-root .dn-hero-trust-stat .dn-num { font-size: 1.25rem; }
+  #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.65rem; }
   #dn-root .dn-impact-stats { grid-template-columns: 1fr; }
   #dn-root .dn-hero-trust { gap: 14px; }
   #dn-root .dn-tab-title { font-size: 12px; }
@@ -1038,7 +1050,7 @@ html.dn-active { scroll-behavior: smooth; }
         <h3>Rapidly <span class="dn-accent">Growing</span> Community.</h3>
         <p>Help us reach 3,000 students by December.</p>
         <div class='dn-impact-stats'>
-          <div class='dn-impact-stat'><div class='dn-num'>850<span class='dn-unit'>+</span></div><div class='dn-lbl'>Mentees dn-active on the app</div></div>
+          <div class='dn-impact-stat'><div class='dn-num'>850<span class='dn-unit'>+</span></div><div class='dn-lbl'>Mentees active on the app</div></div>
           <div class='dn-impact-stat'><div class='dn-num'>150<span class='dn-unit'>+</span></div><div class='dn-lbl'>Professional mentors</div></div>
           <div class='dn-impact-stat'><div class='dn-num'>12<span class='dn-unit'>+</span></div><div class='dn-lbl'>Annual Scholarships</div></div>
           <div class='dn-impact-stat'><div class='dn-num'>94<span class='dn-unit'>%</span></div><div class='dn-lbl'>Program retention rate</div></div>
@@ -1094,14 +1106,14 @@ html.dn-active { scroll-behavior: smooth; }
         <div class='dn-panel-bullets'>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Tax-deductible receipt every month</span></div>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Pause, change, or cancel anytime</span></div>
-          <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Quarterly dn-impact reports from the field</span></div>
+          <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Quarterly impact reports from the field</span></div>
         </div>
-        <a href="https://kindest.com/the-pulse-of-perseverance?amount=25&frequency=monthly" target="_blank" rel="noopener" class='dn-panel-cta'
-           data-cta-base="https://kindest.com/the-pulse-of-perseverance?frequency=monthly" data-cta="monthly">
+        <a href="https://kindest.com/the-pulse-of-perseverance?donation=1&frequency=monthly&amount=25" target="_blank" rel="noopener" class='dn-panel-cta'
+           data-cta-base="https://kindest.com/the-pulse-of-perseverance?donation=1&frequency=monthly" data-cta="monthly">
           <span class='dn-cta-text'>Give <span class='dn-cta-amount'>$25</span>/mo on Kindest</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <div class='dn-panel-meta'>Powered by Kindest &middot; 0% platform fee</div>
+        <div class='dn-panel-meta'>You'll confirm your amount on Kindest's secure checkout &middot; 0% platform fee</div>
       </div>
       <div class='dn-panel-right'>
         <h4>Suggested monthly gift</h4>
@@ -1128,12 +1140,12 @@ html.dn-active { scroll-behavior: smooth; }
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Instant tax-deductible receipt by email</span></div>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Option to dedicate your gift in honor of someone</span></div>
         </div>
-        <a href="https://kindest.com/the-pulse-of-perseverance?amount=250" target="_blank" rel="noopener" class='dn-panel-cta'
-           data-cta-base="https://kindest.com/the-pulse-of-perseverance" data-cta="onetime">
+        <a href="https://kindest.com/the-pulse-of-perseverance?donation=1&amount=250" target="_blank" rel="noopener" class='dn-panel-cta'
+           data-cta-base="https://kindest.com/the-pulse-of-perseverance?donation=1" data-cta="onetime">
           <span class='dn-cta-text'>Donate <span class='dn-cta-amount'>$250</span> on Kindest</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <div class='dn-panel-meta'>Powered by Kindest &middot; 0% platform fee</div>
+        <div class='dn-panel-meta'>You'll confirm your amount on Kindest's secure checkout &middot; 0% platform fee</div>
       </div>
       <div class='dn-panel-right'>
         <h4>Suggested one-time gift</h4>
@@ -1285,7 +1297,7 @@ html.dn-active { scroll-behavior: smooth; }
     </div>
 
     <div class='dn-patrons-cta'>
-      Want your name here? <a href="#dn-give-now">Become a dn-patron with $500+ &rarr;</a>
+      Want your name here? <a href="#dn-give-now">Become a patron with $500+ &rarr;</a>
     </div>
   </div>
 </section>
@@ -1333,7 +1345,7 @@ html.dn-active { scroll-behavior: smooth; }
     <div class='dn-section-header'>
       <span class="dn-section-tag dn-tag-light">Beyond the usual</span>
       <h2>Other <span class="dn-accent" style="color:var(--dn-crimson)">ways to give</span>.</h2>
-      <p>For donors who want to build something lasting &mdash; or multiply their dn-impact through partnership.</p>
+      <p>For donors who want to build something lasting &mdash; or multiply their impact through partnership.</p>
     </div>
     <div class='dn-other-grid'>
       <div class='dn-other-card'>
@@ -1348,7 +1360,7 @@ html.dn-active { scroll-behavior: smooth; }
       <div class='dn-other-card'>
         <div class='dn-other-icon'><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
         <h3>Legacy &amp; Planned Giving</h3>
-        <p>Include P3 in your will, trust, or donor-advised fund. We'll work with your financial advisor to structure dn-impact that outlasts you.</p>
+        <p>Include P3 in your will, trust, or donor-advised fund. We'll work with your financial advisor to structure impact that outlasts you.</p>
         <a href="mailto:thomas@pulseofp3.org?subject=Legacy%20Giving%20Inquiry" class='dn-other-link'>
           Request planning guide
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -1371,8 +1383,8 @@ html.dn-active { scroll-behavior: smooth; }
 <footer class='dn-footer'>
   <div class='dn-footer-inner'>
     <div class='dn-footer-brand'>
-      <img src="${LOGO}" alt="Pulse of Perseverance Project">
-      <p>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
+      <img src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b04a49d86c8d9ea145304a_p3-logo-horizontal.png" alt="Pulse of Perseverance Project">
+      <p class='dn-footer-tagline'>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
       <p class='dn-footer-location'>Chicago, IL &middot; Founded 2018</p>
     </div>
     <div class="dn-footer-col">
@@ -1386,28 +1398,20 @@ html.dn-active { scroll-behavior: smooth; }
       <h5>About</h5>
       <a href="https://www.pulseofp3.org/about/about">Our Story</a>
       <a href="https://www.pulseofp3.org/about/about#team">Team</a>
-      <a href="https://www.pulseofp3.org/about/annual-report">Annual Report</a>
+      <a href="https://drive.google.com/file/d/1IrFocCsboO6mLZsG3GAlHjmKv_V7a9Sn/view?usp=drive_link" target="_blank" rel="noopener">Annual Report</a>
       <a href="https://www.pulseofp3.org/about/in-the-press">Press</a>
     </div>
     <div class="dn-footer-col">
       <h5>Connect</h5>
       <a href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.linkedin.com/company/pulseofperserverance/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://www.youtube.com/@pulseofperseverance" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.linkedin.com/company/pulseofperserverance" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.youtube.com/@PulseofPerseveranceProject" target="_blank" rel="noopener">YouTube</a>
       <a href="https://www.pulseofp3.org/donate">Donate</a>
     </div>
   </div>
   <div class='dn-footer-bottom'>
     <div>&copy; 2026 Pulse of Perseverance Project. All rights reserved.</div>
-    <div class='dn-footer-bottom-right'>
-      <a href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
-      <div class='dn-footer-socials'>
-        <a href="https://www.facebook.com/theofficialpulseofp3/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg></a>
-        <a href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
-        <a href="https://www.linkedin.com/company/pulseofperserverance/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
-        <a href="https://www.youtube.com/@pulseofperseverance" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-      </div>
-    </div>
+    <a href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
   </div>
 </footer>
 `;
@@ -1457,8 +1461,9 @@ html.dn-active { scroll-behavior: smooth; }
 
   // Amount chip selection → drive CTA URL + label
   // Handles both Kindest bases:
-  //   Monthly  → https://kindest.com/the-pulse-of-perseverance?frequency=monthly  (needs &amount=X)
-  //   One-time → https://kindest.com/the-pulse-of-perseverance                    (needs ?amount=X)
+  //   Monthly  → https://kindest.com/the-pulse-of-perseverance?donation=1&frequency=monthly  (+ &amount=X)
+  //   One-time → https://kindest.com/the-pulse-of-perseverance?donation=1                    (+ &amount=X)
+  // Kindest only reads ?donation=1 (opens modal); amount is preserved for analytics only.
   function updateCta(panelKey, amount) {
     amount = parseInt(amount, 10);
     if (!amount || amount < 1) return;
