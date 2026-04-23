@@ -120,33 +120,34 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root ul { list-style: none; }
 
 /* ═══════════ NAV BAR (matches hp-shared-sections.js / p3-nav — COPIED VERBATIM FROM FS) ═══════════ */
-/* Rules are PREFIXED with #dn-root ONLY so they beat our own #dn-root* reset's specificity.
-   Property values are IDENTICAL to FS/FM. No extra !important, no extra line-height, no extra
-   display/flex on CTA — to guarantee pixel parity with For Students / For Mentors. */
-#dn-root .p3-nav { position: fixed; top: 0; left: 0; right: 0; height: auto; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; background: transparent; transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s; z-index: 1000; }
-#dn-root .p3-nav.scrolled { background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(20px) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
-#dn-root .p3-nav-logo { text-decoration: none; z-index: 10; }
-#dn-root .p3-nav-logo-img { height: 36px; max-height: 36px; }
-#dn-root .p3-nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
-#dn-root .p3-nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
+/* Rules are UNPREFIXED to exactly mirror FS. After document.body.appendChild(root), the JS
+   below RE-PARENTS .p3-nav, .pp-mob-overlay, .p3-footer out of #dn-root to be siblings of it
+   (direct children of body). This way they inherit body's Satoshi/30px line-height from
+   Webflow's site-level CSS — EXACTLY like FS — giving pixel-perfect parity. */
+.p3-nav { position: fixed; top: 0; left: 0; right: 0; height: auto; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; background: transparent; transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s; z-index: 1000; }
+.p3-nav.scrolled { background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(20px) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+.p3-nav-logo { text-decoration: none; z-index: 10; }
+.p3-nav-logo-img { height: 36px; max-height: 36px; }
+.p3-nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+.p3-nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
 /* Active page link: NOT bold, matches other links exactly */
-#dn-root .p3-nav-links a.w--current, #dn-root .p3-nav-links a.p3-nav-link.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
-#dn-root .p3-nav.scrolled .p3-nav-links a.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
-#dn-root .pp-home-desktop-hide { display: none; }
-#dn-root .p3-nav-cta { background: #D93A3A; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-left: 0; }
-#dn-root .p3-nav-cta:hover { background: #b52f2f; transform: translateY(-1px); }
+.p3-nav-links a.w--current, .p3-nav-links a.p3-nav-link.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
+.p3-nav.scrolled .p3-nav-links a.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
+.pp-home-desktop-hide { display: none; }
+.p3-nav-cta { background: #D93A3A; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-left: 0; }
+.p3-nav-cta:hover { background: #b52f2f; transform: translateY(-1px); }
 
 /* ═══════════ MOBILE MENU (COPIED VERBATIM FROM FS) ═══════════ */
-#dn-root .pp-mob-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
-#dn-root .pp-mob-menu span { width: 24px; height: 2.5px; background: #fff; border-radius: 2px; transition: all 0.3s; }
-#dn-root .pp-mob-menu.open span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
-#dn-root .pp-mob-menu.open span:nth-child(2) { opacity: 0; }
-#dn-root .pp-mob-menu.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-#dn-root .pp-mob-overlay { position: fixed; inset: 0; background-color: rgba(26, 10, 16, 0.97); z-index: 999; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 28px; opacity: 0; transform: translateY(-100%); transition: opacity 0.3s, transform 0.3s; overflow-y: auto; }
-#dn-root .pp-mob-overlay.open { display: flex !important; opacity: 1; transform: translateY(0); }
-#dn-root .pp-mob-overlay-link, #dn-root .pp-mob-overlay-cta { font-family: 'Inter', sans-serif; font-size: 1.25rem; font-weight: 500; color: #fff; opacity: 0.85; text-decoration: none; transition: color 0.2s; }
-#dn-root .pp-mob-overlay-link.w--current { opacity: 0.85 !important; font-weight: 500 !important; }
-#dn-root .pp-mob-overlay-cta { opacity: 1; background: #D93A3A; color: #fff; padding: 12px 32px; border-radius: 100px; display: inline-block; text-align: center; margin-top: 8px; font-size: 1rem; font-weight: 600; }
+.pp-mob-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+.pp-mob-menu span { width: 24px; height: 2.5px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+.pp-mob-menu.open span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+.pp-mob-menu.open span:nth-child(2) { opacity: 0; }
+.pp-mob-menu.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+.pp-mob-overlay { position: fixed; inset: 0; background-color: rgba(26, 10, 16, 0.97); z-index: 999; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 28px; opacity: 0; transform: translateY(-100%); transition: opacity 0.3s, transform 0.3s; overflow-y: auto; }
+.pp-mob-overlay.open { display: flex !important; opacity: 1; transform: translateY(0); }
+.pp-mob-overlay-link, .pp-mob-overlay-cta { font-family: 'Inter', sans-serif; font-size: 1.25rem; font-weight: 500; color: #fff; opacity: 0.85; text-decoration: none; transition: color 0.2s; }
+.pp-mob-overlay-link.w--current { opacity: 0.85 !important; font-weight: 500 !important; }
+.pp-mob-overlay-cta { opacity: 1; background: #D93A3A; color: #fff; padding: 12px 32px; border-radius: 100px; display: inline-block; text-align: center; margin-top: 8px; font-size: 1rem; font-weight: 600; }
 
 /* ═══════════ HERO ═══════════ */
 #dn-root .dn-hero {
@@ -772,26 +773,26 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-trust-link svg { width: 13px; height: 13px; }
 
 /* ══════════════ FOOTER (ported from FS — #dn-root prefixed to beat reset) ══════════════ */
-/* ═══════════ FOOTER (COPIED VERBATIM FROM FS) ═══════════ */
-#dn-root .p3-footer { background: #0a0a0a; padding: 64px 40px 32px; color: #fff; }
-#dn-root .p3-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1180px; margin: 0 auto; }
-#dn-root .p3-footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; margin-top: 12px; }
-#dn-root .p3-footer-logo { height: 36px; margin-bottom: 8px; }
-#dn-root .p3-footer-tagline { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; margin-top: 12px; }
-#dn-root .p3-footer-location { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px; }
-#dn-root .p3-footer-col-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
-#dn-root .p3-footer-col { display: flex; flex-direction: column; gap: 10px; }
-#dn-root .p3-footer-link { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; transition: color 0.2s; }
-#dn-root .p3-footer-link:hover { color: #fff; }
-#dn-root .p3-footer-bottom { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
+/* ═══════════ FOOTER (COPIED VERBATIM FROM FS — UNPREFIXED, re-parented out of #dn-root) ═══════════ */
+.p3-footer { background: #0a0a0a; padding: 64px 40px 32px; color: #fff; }
+.p3-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1180px; margin: 0 auto; }
+.p3-footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; margin-top: 12px; }
+.p3-footer-logo { height: 36px; margin-bottom: 8px; }
+.p3-footer-tagline { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; margin-top: 12px; }
+.p3-footer-location { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px; }
+.p3-footer-col-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+.p3-footer-col { display: flex; flex-direction: column; gap: 10px; }
+.p3-footer-link { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+.p3-footer-link:hover { color: #fff; }
+.p3-footer-bottom { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
 
 /* ══════════════ RESPONSIVE ══════════════ */
 @media (max-width: 991px) {
-  /* Nav responsive (ported from FS, #dn-root prefixed to beat reset) */
-  #dn-root .pp-mob-menu { display: flex; }
-  #dn-root .p3-nav-links, #dn-root .p3-nav-cta { display: none !important; }
-  #dn-root .p3-nav { padding: 16px !important; height: 64px !important; }
-  #dn-root .p3-nav .p3-nav-logo-img { max-height: 36px !important; height: 36px !important; }
+  /* Nav responsive (copied verbatim from FS — unprefixed) */
+  .pp-mob-menu { display: flex; }
+  .p3-nav-links, .p3-nav-cta { display: none !important; }
+  .p3-nav { padding: 16px !important; height: 64px !important; }
+  .p3-nav .p3-nav-logo-img { max-height: 36px !important; height: 36px !important; }
 
   #dn-root .dn-hero { padding: 96px 24px 40px; }
   #dn-root .dn-hero-inner { grid-template-columns: 1fr; gap: 32px; }
@@ -868,10 +869,10 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-trust-card h4 { font-size: 12px; }
   #dn-root .dn-trust-card p { font-size: 12.5px; }
 
-  /* Footer responsive (#dn-root prefixed to beat reset) */
-  #dn-root .p3-footer-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 24px 16px !important; }
-  #dn-root .p3-footer-brand { grid-column: 1 / -1; }
-  #dn-root .p3-footer-bottom { flex-wrap: wrap; justify-content: center; text-align: center; }
+  /* Footer responsive (copied verbatim from FS — unprefixed) */
+  .p3-footer-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 24px 16px !important; }
+  .p3-footer-brand { grid-column: 1 / -1; }
+  .p3-footer-bottom { flex-wrap: wrap; justify-content: center; text-align: center; }
 }
 @media (max-width: 440px) {
   #dn-root .dn-hero h1 { font-size: 1.5rem; line-height: 1.2; }
@@ -1313,6 +1314,23 @@ html.dn-active { scroll-behavior: smooth; }
 </section>
 `;
   document.body.appendChild(root);
+
+  // ═══ 4b. RE-PARENT NAV + OVERLAY + FOOTER OUT OF #dn-root ═══
+  // CRITICAL: FS/FM inject .p3-nav / .pp-mob-overlay / .p3-footer as SIBLINGS of #fm-root
+  // (direct children of body). Donate originally nested them INSIDE #dn-root, which made
+  // them inherit #dn-root's `font-family: Inter; line-height: 1.6` instead of body's
+  // Webflow-site-level `font-family: Satoshi; line-height: 30.006px`. Result: visibly
+  // thinner fonts, shorter nav, footer misalignment vs FS. Moving them to body-level
+  // siblings gives them the correct Webflow inheritance chain and makes nav/footer
+  // pixel-identical to FS.
+  (function reparent() {
+    var _nav = root.querySelector('#p3nav');
+    var _ovr = root.querySelector('#pp-mob-overlay');
+    var _ftr = root.querySelector('.p3-footer');
+    if (_nav) document.body.insertBefore(_nav, root);
+    if (_ovr) document.body.insertBefore(_ovr, root);
+    if (_ftr) document.body.appendChild(_ftr);
+  })();
 
   // ═══ 5. BEHAVIOR ═══
   // Nav scroll darken (matches FS: toggle .scrolled on .p3-nav at scrollY>50)
