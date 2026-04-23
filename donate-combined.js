@@ -119,29 +119,24 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root button { font-family: inherit; cursor: pointer; border: none; background: none; text-transform: none; }
 #dn-root ul { list-style: none; }
 
-/* ═══════════ NAV BAR (ported verbatim from FS page fs-combined.js — guarantees pixel parity) ═══════════ */
-/* Root cause of prior mismatch: the .p3-nav / .p3-footer styling is NOT site-level Webflow
-   CSS — it ships INSIDE each page's combined JS as an inline <style> block. So we ship the
-   same block here. Rules are PREFIXED with #dn-root so they beat the specificity of our own
-   CSS reset (#dn-root * { padding: 0 }) — without the prefix, the reset wildcard was zeroing
-   out nav padding/height, collapsing the bar to 36px tall and clipping the CTA off-screen.
-   FS page doesn't have this reset so it can get away with plain .p3-nav selectors.
-   Webflow's native V2 Nav / V2 Footer (inside .header-wrapper / .page-wrapper) is hidden
-   above, so no conflict with site chrome. */
+/* ═══════════ NAV BAR (matches hp-shared-sections.js / p3-nav — COPIED VERBATIM FROM FS) ═══════════ */
+/* Rules are PREFIXED with #dn-root ONLY so they beat our own #dn-root* reset's specificity.
+   Property values are IDENTICAL to FS/FM. No extra !important, no extra line-height, no extra
+   display/flex on CTA — to guarantee pixel parity with For Students / For Mentors. */
 #dn-root .p3-nav { position: fixed; top: 0; left: 0; right: 0; height: auto; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; background: transparent; transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s; z-index: 1000; }
 #dn-root .p3-nav.scrolled { background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(20px) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
-#dn-root .p3-nav-logo { text-decoration: none; z-index: 10; display: block; }
-#dn-root .p3-nav-logo-img { height: 36px; max-height: 36px; width: auto; display: block; }
+#dn-root .p3-nav-logo { text-decoration: none; z-index: 10; }
+#dn-root .p3-nav-logo-img { height: 36px; max-height: 36px; }
 #dn-root .p3-nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
-#dn-root .p3-nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; padding: 0; line-height: 30px; letter-spacing: normal; text-transform: none; }
+#dn-root .p3-nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
 /* Active page link: NOT bold, matches other links exactly */
 #dn-root .p3-nav-links a.w--current, #dn-root .p3-nav-links a.p3-nav-link.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
 #dn-root .p3-nav.scrolled .p3-nav-links a.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
 #dn-root .pp-home-desktop-hide { display: none; }
-#dn-root .p3-nav-cta, #dn-root .p3-nav .p3-nav-cta, #dn-root .p3-nav-links a.p3-nav-cta { background: #D93A3A !important; color: #fff !important; padding: 10px 24px !important; border-radius: 50px !important; font-family: 'Inter', sans-serif !important; font-size: 14px !important; font-weight: 600 !important; line-height: 30px !important; text-decoration: none !important; text-transform: none !important; letter-spacing: normal !important; transition: background 0.2s, transform 0.2s; margin-left: 0; display: flex; align-items: center; }
-#dn-root .p3-nav-cta:hover { background: #b52f2f !important; transform: translateY(-1px); }
+#dn-root .p3-nav-cta { background: #D93A3A; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-left: 0; }
+#dn-root .p3-nav-cta:hover { background: #b52f2f; transform: translateY(-1px); }
 
-/* ═══════════ MOBILE MENU ═══════════ */
+/* ═══════════ MOBILE MENU (COPIED VERBATIM FROM FS) ═══════════ */
 #dn-root .pp-mob-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
 #dn-root .pp-mob-menu span { width: 24px; height: 2.5px; background: #fff; border-radius: 2px; transition: all 0.3s; }
 #dn-root .pp-mob-menu.open span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
@@ -777,19 +772,18 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-trust-link svg { width: 13px; height: 13px; }
 
 /* ══════════════ FOOTER (ported from FS — #dn-root prefixed to beat reset) ══════════════ */
+/* ═══════════ FOOTER (COPIED VERBATIM FROM FS) ═══════════ */
 #dn-root .p3-footer { background: #0a0a0a; padding: 64px 40px 32px; color: #fff; }
 #dn-root .p3-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1180px; margin: 0 auto; }
 #dn-root .p3-footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; margin-top: 12px; }
-#dn-root .p3-footer-logo { height: 36px; margin-bottom: 8px; width: auto; display: block; }
+#dn-root .p3-footer-logo { height: 36px; margin-bottom: 8px; }
 #dn-root .p3-footer-tagline { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; margin-top: 12px; }
 #dn-root .p3-footer-location { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px; }
 #dn-root .p3-footer-col-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
 #dn-root .p3-footer-col { display: flex; flex-direction: column; gap: 10px; }
 #dn-root .p3-footer-link { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; transition: color 0.2s; }
 #dn-root .p3-footer-link:hover { color: #fff; }
-#dn-root .p3-footer-bottom { margin-top: 40px; padding-top: 24px !important; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: center; align-items: center; gap: 4px; flex-wrap: wrap; color: rgba(255,255,255,0.5); font-size: 12px; }
-#dn-root .p3-footer-bottom a { color: rgba(255,255,255,0.6); text-decoration: none; }
-#dn-root .p3-footer-bottom a:hover { color: #fff; }
+#dn-root .p3-footer-bottom { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
 
 /* ══════════════ RESPONSIVE ══════════════ */
 @media (max-width: 991px) {
@@ -1286,7 +1280,7 @@ html.dn-active { scroll-behavior: smooth; }
 <section class='p3-footer'>
   <div class='p3-footer-grid'>
     <div class='p3-footer-brand'>
-      <img class='p3-footer-logo' src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b04a49d86c8d9ea145304a_p3-logo-horizontal.png" alt="Pulse of Perseverance Project">
+      <img class='p3-footer-logo' src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b02f65f0068e9fb16f0df1_P3%20Logo.svg" loading="lazy" alt="P3 - Pulse of Perseverance">
       <p class='p3-footer-tagline'>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
       <p class='p3-footer-location'>Chicago, IL &middot; Founded 2018</p>
     </div>
