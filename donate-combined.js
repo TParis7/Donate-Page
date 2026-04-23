@@ -100,8 +100,12 @@
 }
 
 /* ─── Hide Webflow native chrome while Donate page is dn-active ─── */
+/* Surgical: only hide the legacy V1 header-wrapper and page-wrapper. Leaves
+   our injected .p3-nav / .p3-footer (inside #dn-root) visible AND leaves
+   any other body-level nodes (scripts, Webflow's injected badge, etc.) alone. */
 body.dn-active { background: #fff; margin: 0; padding: 0; opacity: 1 !important; overflow-x: hidden; }
-body.dn-active > *:not(#dn-root):not(script):not(style):not(link):not(noscript):not([data-dn-keep]) { display: none !important; }
+body.dn-active > .header-wrapper,
+body.dn-active > .page-wrapper { display: none !important; }
 html.dn-active { scroll-behavior: smooth; }
 
 /* ─── Universal reset inside #dn-root ─── */
@@ -117,130 +121,63 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root button { font-family: inherit; cursor: pointer; border: none; background: none; text-transform: none; }
 #dn-root ul { list-style: none; }
 
-/* ═══════════ NAV (mirrors FS page .p3-nav exactly) ═══════════ */
-/* Structure: .dn-nav is the direct flex container (no inner wrapper), with
-   logo + .dn-nav-links (pushed right via margin-left:auto) + .dn-nav-cta +
-   .dn-mobile-toggle as direct children. Pixel-locked to FS computed values:
-   padding 16px 40px, gap 32px, links Satoshi 18/30/400, CTA Inter 14/30/600. */
-#dn-root .dn-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 16px 40px !important;
-  gap: 32px !important;
-  min-height: 0 !important;
-  height: auto !important;
-  background: transparent;
-  transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
-}
-#dn-root .dn-nav.dn-scrolled {
+/* ═══════════ NAV — uses Webflow native .p3-nav styles (identical to FS page) ═══════════ */
+/* We inject .p3-nav / .p3-nav-links / .p3-nav-cta markup; Webflow's site-wide
+   stylesheet styles them exactly the way it styles FS, For Mentors, Partners,
+   etc. (position: fixed, padding 16px 40px, Satoshi typography, crimson CTA).
+   Only override needed: force display:flex/block because Webflow's global
+   rule defaults .p3-nav to display:none on pages that don't ship the V2
+   Nav symbol (this donate page uses the V1 legacy nav we hide above).
+   All the hard work — fonts, colors, sizing, responsive behavior — is done
+   by Webflow's global CSS, so this page looks identical to FS. */
+#dn-root .p3-nav { display: flex !important; }
+#dn-root .p3-nav.p3-scrolled {
   background: rgba(26,26,26,0.95) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
   box-shadow: 0 2px 20px rgba(0,0,0,0.15);
 }
-#dn-root .dn-nav-logo {
-  display: inline-block !important;
-  line-height: normal !important;
-  padding: 0 !important;
-  margin: 0 !important;
+/* Hide desktop-only "Home" link on desktop (matches FS's .pp-home-desktop-hide) */
+#dn-root .p3-nav .pp-home-desktop-hide { display: none; }
+@media (max-width: 991px) {
+  #dn-root .p3-nav .pp-home-desktop-hide { display: block; }
 }
-#dn-root .dn-nav-logo img {
-  height: 36px !important; max-height: 36px !important;
-  width: auto; object-fit: contain; display: block;
-  filter: brightness(0) invert(1);
-}
-#dn-root .dn-nav-links {
-  display: flex !important;
-  align-items: center !important;
-  gap: 32px !important;
-  margin: 0 0 0 auto !important;
-  padding: 0 !important;
-  width: auto !important;
-  max-width: none !important;
-}
-#dn-root .dn-nav-links a {
-  display: block !important;
-  font-family: 'Satoshi', 'Inter', sans-serif !important;
-  font-size: 18px !important;
-  font-weight: 400 !important;
-  line-height: 30px !important;
-  color: rgba(255,255,255,0.85) !important;
-  letter-spacing: normal !important;
-  text-transform: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  -webkit-font-smoothing: auto !important;
-  -moz-osx-font-smoothing: auto !important;
-  transition: color 0.2s;
-}
-#dn-root .dn-nav-links a:hover { color: #fff !important; }
-/* FS page .p3-nav-cta parity: Inter 14/600, crimson pill, 10px 24px padding,
-   50px border-radius, height resolves to 50px (30px line + 10+10 padding). */
-#dn-root .dn-nav .dn-nav-cta {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: var(--dn-crimson) !important;
-  color: #fff !important;
-  padding: 10px 24px !important;
-  border-radius: 50px !important;
-  font-family: 'Inter', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  line-height: 30px !important;
-  letter-spacing: normal !important;
-  text-transform: none !important;
-  -webkit-font-smoothing: auto !important;
-  -moz-osx-font-smoothing: auto !important;
-  margin: 0 !important;
-  transition: all 0.2s;
-  box-shadow: 0 2px 12px rgba(217,58,58,0.3);
-}
-#dn-root .dn-nav .dn-nav-cta:hover {
-  background: var(--dn-crimson-dark) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(217,58,58,0.4);
-}
-#dn-root .dn-mobile-toggle {
-  display: none; background: none; border: none; cursor: pointer;
-  width: 32px; height: 32px; position: relative; z-index: 1001;
-}
-#dn-root .dn-mobile-toggle span {
-  display: block; width: 22px; height: 2px; background: #fff;
-  position: absolute; left: 5px; transition: all 0.3s; border-radius: 2px;
-}
-#dn-root .dn-mobile-toggle span:nth-child(1) { top: 10px; }
-#dn-root .dn-mobile-toggle span:nth-child(2) { top: 16px; }
-#dn-root .dn-mobile-toggle span:nth-child(3) { top: 22px; }
-#dn-root .dn-mobile-toggle.dn-open span:nth-child(1) { top: 16px; transform: rotate(45deg); }
-#dn-root .dn-mobile-toggle.dn-open span:nth-child(2) { opacity: 0; }
-#dn-root .dn-mobile-toggle.dn-open span:nth-child(3) { top: 16px; transform: rotate(-45deg); }
 
-/* Mobile overlay menu */
-#dn-root .dn-mob-overlay {
-  display: none;
-  position: fixed; inset: 0; z-index: 999;
+/* Hamburger menu (matches FS / homepage .pp-mob-menu) */
+#dn-root .pp-mob-menu {
+  display: none; cursor: pointer; padding: 8px; z-index: 100;
+  flex-direction: column; gap: 5px; background: none; border: none;
+}
+#dn-root .pp-mob-menu span {
+  display: block; width: 22px; height: 2px;
+  background-color: #fff; border-radius: 2px; transition: all .3s ease;
+}
+#dn-root .pp-mob-menu.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 6px); }
+#dn-root .pp-mob-menu.open span:nth-child(2) { opacity: 0; }
+#dn-root .pp-mob-menu.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -6px); }
+@media (max-width: 991px) { #dn-root .pp-mob-menu { display: flex; } }
+
+/* Mobile overlay (matches FS / homepage .pp-mob-overlay) */
+#dn-root .pp-mob-overlay {
+  display: none; position: fixed; inset: 0; z-index: 999;
   background: rgba(26,26,26,0.98);
   flex-direction: column; align-items: center; justify-content: center;
   gap: 24px;
-  animation: dnFadeIn 0.25s ease;
 }
-#dn-root .dn-mob-overlay.dn-open { display: flex; }
-#dn-root .dn-mob-overlay a {
+#dn-root .pp-mob-overlay.open { display: flex !important; }
+#dn-root .pp-mob-overlay-link {
   color: #fff; font-size: 1.4rem; font-weight: 600;
+  text-decoration: none; opacity: 0.8; transition: opacity .3s;
   font-family: 'Space Grotesk', sans-serif;
-  opacity: 0.8; transition: opacity 0.3s;
 }
-#dn-root .dn-mob-overlay a:hover { opacity: 1; }
-#dn-root .dn-mob-overlay .dn-mob-cta {
-  display: inline-flex; padding: 12px 28px;
-  border-radius: 100px; background: var(--dn-crimson);
-  color: #fff; font-weight: 600; font-size: 1rem;
-  margin-top: 12px; opacity: 1;
+#dn-root .pp-mob-overlay-link:hover { opacity: 1; }
+#dn-root .pp-mob-overlay-cta {
+  display: inline-flex; padding: 12px 28px; border-radius: 100px;
+  background: #D93A3A; color: #fff;
+  font-weight: 600; font-size: 1rem; text-decoration: none;
+  margin-top: 12px; transition: opacity .3s;
 }
-@keyframes dnFadeIn { from { opacity: 0 } to { opacity: 1 } }
+#dn-root .pp-mob-overlay-cta:hover { opacity: 0.9; }
 
 /* ═══════════ HERO ═══════════ */
 #dn-root .dn-hero {
@@ -865,118 +802,21 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-trust-link:hover { gap: 9px; }
 #dn-root .dn-trust-link svg { width: 13px; height: 13px; }
 
-/* ══════════════ FOOTER (mirrors FS page .p3-footer exactly) ══════════════ */
-/* FS spec (1344vw):
-   .p3-footer         padding 64px 40px 32px, bg #0A0A0A, full width
-   .p3-footer-grid    display grid, cols 424px 212px 212px 212px, gap 40px,
-                       max-width 1180px, margin 0 42px, padding 0 0 40px
-   .p3-footer-col-title  H4, 11px/700, letter-spacing 1.5px, uppercase
-   .p3-footer-link    13px, color rgba(255,255,255,0.6), padding 3px 0
-   .p3-footer-bottom  flex row justify-center gap 4px, max-width 1200px,
-                       margin 40px 32px 0, padding 24px 0 0, 12px/rgba(.4) */
-#dn-root .dn-footer {
-  background: #0A0A0A;
-  color: rgba(255,255,255,0.5);
-  padding: 64px 40px 32px;
-  font-family: 'Satoshi', 'Inter', sans-serif;
-  font-size: 18px;
-  line-height: 30px;
-}
-/* Accept both .dn-footer-inner (legacy) and .dn-footer-grid (FS-spec). */
-#dn-root .dn-footer-inner,
-#dn-root .dn-footer-grid {
-  display: grid !important;
-  grid-template-columns: 424px 212px 212px 212px !important;
-  gap: 40px !important;
-  max-width: 1180px !important;
-  margin: 0 42px !important;
-  padding: 0 0 40px !important;
-}
-#dn-root .dn-footer-brand { display: flex; flex-direction: column; width: 424px; max-width: 100%; }
-#dn-root .dn-footer-brand img {
-  height: 36px; width: auto; display: block;
-  filter: brightness(0) invert(1);
-  opacity: 0.8; margin-bottom: 12px;
-}
-#dn-root .dn-footer-brand p.dn-footer-tagline {
-  font-family: 'Satoshi', 'Inter', sans-serif;
-  font-size: 13px; line-height: 1.6;
-  color: rgba(255,255,255,0.5);
-  max-width: 280px;
-  margin: 0;
-}
-#dn-root .dn-footer-brand p.dn-footer-location {
-  font-family: 'Satoshi', 'Inter', sans-serif;
-  font-size: 13px; line-height: 1.6;
-  color: rgba(255,255,255,0.5);
-  max-width: 280px;
-  margin: 6px 0 0;
-}
-#dn-root .dn-footer-col {
-  display: flex; flex-direction: column; gap: 10px;
-  width: 212px; max-width: 100%;
-}
-/* Column title: FS uses H4 class "p3-footer-col-title" @ 11/700/1.5/upper. */
-#dn-root .dn-footer-col h5,
-#dn-root .dn-footer-col h4,
-#dn-root .dn-footer-col-title {
-  font-family: 'Inter', sans-serif !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  letter-spacing: 1.5px !important;
-  text-transform: uppercase !important;
-  color: rgba(255,255,255,0.8) !important;
-  margin: 0 0 4px !important;
-  line-height: 1.4 !important;
-}
-#dn-root .dn-footer-col a,
-#dn-root .dn-footer-link {
-  display: block !important;
-  font-family: 'Satoshi', 'Inter', sans-serif !important;
-  font-size: 13px !important;
-  color: rgba(255,255,255,0.6) !important;
-  padding: 3px 0 !important;
-  font-weight: 400 !important;
-  line-height: 1.6 !important;
-  transition: color 0.2s;
-}
-#dn-root .dn-footer-col a:hover,
-#dn-root .dn-footer-link:hover { color: #fff !important; }
-#dn-root .dn-footer-bottom {
-  max-width: 1200px;
-  margin: 40px 32px 0;
-  padding: 24px 0 0;
-  display: flex !important;
-  flex-direction: row;
-  justify-content: center !important;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 4px !important;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-}
-#dn-root .dn-footer-bottom p,
-#dn-root .dn-footer-bottom div {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-  margin: 0;
-}
-#dn-root .dn-footer-bottom a {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  padding: 3px 0;
-  transition: color 0.2s;
-}
-#dn-root .dn-footer-bottom a:hover { color: #fff; }
+/* ══════════════ FOOTER — uses Webflow native .p3-footer styles (identical to FS) ══════════════ */
+/* Same approach as nav: inject .p3-footer markup, Webflow's site-wide CSS
+   handles background #0A0A0A, padding 64px 40px 32px, grid 2fr 1fr 1fr 1fr,
+   .p3-footer-col-title Inter 11/700/1.5/uppercase, .p3-footer-link 13px,
+   .p3-footer-logo max-width 180px/height 36px, mobile 2-col grid, etc.
+   Only overrides needed: force display:block (Webflow default is none). */
+#dn-root .p3-footer { display: block !important; }
+#dn-root .p3-footer-grid { display: grid !important; }
+#dn-root .p3-footer-brand { display: flex !important; }
+#dn-root .p3-footer-bottom { display: flex !important; }
 
 /* ══════════════ RESPONSIVE ══════════════ */
 @media (max-width: 991px) {
-  #dn-root .dn-nav { padding: 16px !important; min-height: 64px !important; height: auto !important; }
-  #dn-root .dn-nav-links { display: none !important; }
-  #dn-root .dn-nav .dn-nav-cta { display: none !important; }
-  #dn-root .dn-mobile-toggle { display: block; }
-
+  /* Webflow's global rule already shrinks .p3-nav to padding 16px / height 64px
+     and hides .p3-nav-links + .p3-nav-cta at ≤991px. Nothing to override here. */
   #dn-root .dn-hero { padding: 96px 24px 40px; }
   #dn-root .dn-hero-inner { grid-template-columns: 1fr; gap: 32px; }
   #dn-root .dn-hero-visual { max-width: 440px; margin: 0 auto; }
@@ -988,17 +828,7 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-impact-grid, #dn-root .dn-other-grid { grid-template-columns: repeat(2, 1fr); }
   #dn-root .dn-trust-grid { grid-template-columns: repeat(2, 1fr); }
   #dn-root .dn-hero-trust { gap: 20px; flex-wrap: wrap; }
-  #dn-root .dn-footer-inner,
-  #dn-root .dn-footer-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 32px 24px !important;
-    margin: 0 auto !important;
-    max-width: 100% !important;
-    padding: 0 0 32px !important;
-  }
-  #dn-root .dn-footer-brand { grid-column: 1 / -1; width: auto; }
-  #dn-root .dn-footer-col { width: auto; }
-  #dn-root .dn-footer-brand p.dn-footer-tagline, #dn-root .dn-footer-brand p.dn-footer-location { max-width: 100%; }
+  /* Webflow's global CSS handles .p3-footer mobile layout (grid collapse, brand grid-column span). No overrides needed. */
 }
 @media (max-width: 768px) {
   /* Mobile hero: fixed nav is 64px on mobile; 120px top-padding = 64 + 56px
@@ -1062,19 +892,7 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-trust-card h4 { font-size: 12px; }
   #dn-root .dn-trust-card p { font-size: 12.5px; }
 
-  #dn-root .dn-footer { padding: 40px 20px 24px; }
-  #dn-root .dn-footer-inner,
-  #dn-root .dn-footer-grid {
-    grid-template-columns: 1fr !important;
-    gap: 28px !important;
-    margin: 0 !important;
-    padding: 0 0 24px !important;
-  }
-  #dn-root .dn-footer-brand { grid-column: auto; }
-  #dn-root .dn-footer-bottom { flex-direction: column; text-align: center; gap: 8px; margin: 24px 0 0; padding: 16px 0 0; }
-}
-@media (max-width: 600px) {
-  #dn-root .dn-footer-brand img { height: 24px; }
+  /* Webflow's global CSS handles .p3-footer mobile layout. No overrides. */
 }
 @media (max-width: 440px) {
   #dn-root .dn-hero h1 { font-size: 1.5rem; line-height: 1.2; }
@@ -1098,31 +916,32 @@ html.dn-active { scroll-behavior: smooth; }
   root.id = 'dn-root';
   root.innerHTML = `
 
-<!-- ═══ NAV (mirrors FS page .p3-nav structure) ═══ -->
-<div class='dn-nav' id='dn-nav'>
-  <a class='dn-nav-logo' href="https://www.pulseofp3.org" aria-label="Pulse of Perseverance Project">
-    <img src="${LOGO}" alt="The Pulse of Perseverance Project">
+<!-- ═══ NAV (mirrors FS page .p3-nav structure exactly — Webflow global CSS styles it) ═══ -->
+<div class='p3-nav' id='p3nav'>
+  <a class='p3-nav-logo w-inline-block' href="https://www.pulseofp3.org" aria-label="Pulse of Perseverance Project">
+    <img class='p3-nav-logo-img' src="${LOGO}" alt="The Pulse of Perseverance Project">
   </a>
-  <div class='dn-nav-links' id="dn-navLinks">
-    <a href="https://www.pulseofp3.org/for-students">For Students</a>
-    <a href="https://www.pulseofp3.org/partner">For Institutions</a>
-    <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
-    <a href="https://www.pulseofp3.org/about/about">About</a>
+  <div class='p3-nav-links'>
+    <a class='p3-nav-link pp-home-desktop-hide' href="https://www.pulseofp3.org">Home</a>
+    <a class='p3-nav-link' href="https://www.pulseofp3.org/for-students">For Students</a>
+    <a class='p3-nav-link' href="https://www.pulseofp3.org/partner">For Institutions</a>
+    <a class='p3-nav-link' href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+    <a class='p3-nav-link' href="https://www.pulseofp3.org/about/about">About</a>
   </div>
-  <a href="https://www.pulseofp3.org/download" class='dn-nav-cta'>Get the App</a>
-  <button class='dn-mobile-toggle' id="dn-mobileToggle" aria-label="Menu">
+  <a href="https://www.pulseofp3.org/download" class='p3-nav-cta'>Get the App</a>
+  <button class='pp-mob-menu' aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </div>
 
-<!-- Mobile overlay -->
-<div class='dn-mob-overlay' id="dn-mobOverlay">
-  <a href="https://www.pulseofp3.org">Home</a>
-  <a href="https://www.pulseofp3.org/for-students">For Students</a>
-  <a href="https://www.pulseofp3.org/partner">For Institutions</a>
-  <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
-  <a href="https://www.pulseofp3.org/about/about">About</a>
-  <a href="https://www.pulseofp3.org/download" class='dn-mob-cta'>Get the App</a>
+<!-- Mobile overlay (uses .pp-mob-overlay / .pp-mob-overlay-link / .pp-mob-overlay-cta — same as hp-shared-sections.js) -->
+<div class='pp-mob-overlay'>
+  <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org">Home</a>
+  <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org/for-students">For Students</a>
+  <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org/partner">For Institutions</a>
+  <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+  <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org/about/about">About</a>
+  <a class='pp-mob-overlay-cta' href="https://www.pulseofp3.org/download">Get the App</a>
 </div>
 
 <!-- ═══ HERO ═══ -->
@@ -1478,64 +1297,64 @@ html.dn-active { scroll-behavior: smooth; }
   </div>
 </section>
 
-<!-- ═══ FOOTER (mirrors FS page .p3-footer structure exactly) ═══ -->
-<section class='dn-footer'>
-  <div class='dn-footer-grid dn-footer-inner'>
-    <div class='dn-footer-brand'>
-      <img src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b04a49d86c8d9ea145304a_p3-logo-horizontal.png" alt="Pulse of Perseverance Project">
-      <p class='dn-footer-tagline'>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
-      <p class='dn-footer-location'>Chicago, IL &middot; Founded 2018</p>
+<!-- ═══ FOOTER (mirrors FS page .p3-footer structure exactly — Webflow global CSS styles it) ═══ -->
+<section class='p3-footer'>
+  <div class='p3-footer-grid'>
+    <div class='p3-footer-brand'>
+      <img class='p3-footer-logo' src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b04a49d86c8d9ea145304a_p3-logo-horizontal.png" alt="Pulse of Perseverance Project">
+      <p class='p3-footer-tagline'>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
+      <p class='p3-footer-location'>Chicago, IL &middot; Founded 2018</p>
     </div>
-    <div class="dn-footer-col">
-      <h4 class="dn-footer-col-title">Platform</h4>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/for-students">For Students</a>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/partner">For Institutions</a>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/scholarships">Scholarships</a>
+    <div class="p3-footer-col">
+      <h4 class="p3-footer-col-title">Platform</h4>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/for-students">For Students</a>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/partner">For Institutions</a>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/scholarships">Scholarships</a>
     </div>
-    <div class="dn-footer-col">
-      <h4 class="dn-footer-col-title">About</h4>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/about/about">Our Story</a>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/about/about#team">Team</a>
-      <a class="dn-footer-link" href="https://drive.google.com/file/d/1IrFocCsboO6mLZsG3GAlHjmKv_V7a9Sn/view?usp=drive_link" target="_blank" rel="noopener">Annual Report</a>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/about/in-the-press">Press</a>
+    <div class="p3-footer-col">
+      <h4 class="p3-footer-col-title">About</h4>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/about/about">Our Story</a>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/about/about#team">Team</a>
+      <a class="p3-footer-link" href="https://drive.google.com/file/d/1IrFocCsboO6mLZsG3GAlHjmKv_V7a9Sn/view?usp=drive_link" target="_blank" rel="noopener">Annual Report</a>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/about/in-the-press">Press</a>
     </div>
-    <div class="dn-footer-col">
-      <h4 class="dn-footer-col-title">Connect</h4>
-      <a class="dn-footer-link" href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener">Instagram</a>
-      <a class="dn-footer-link" href="https://www.linkedin.com/company/pulseofperserverance" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="dn-footer-link" href="https://www.youtube.com/@PulseofPerseveranceProject" target="_blank" rel="noopener">YouTube</a>
-      <a class="dn-footer-link" href="https://www.pulseofp3.org/donate">Donate</a>
+    <div class="p3-footer-col">
+      <h4 class="p3-footer-col-title">Connect</h4>
+      <a class="p3-footer-link" href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener">Instagram</a>
+      <a class="p3-footer-link" href="https://www.linkedin.com/company/pulseofperserverance" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="p3-footer-link" href="https://www.youtube.com/@PulseofPerseveranceProject" target="_blank" rel="noopener">YouTube</a>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/donate">Donate</a>
     </div>
   </div>
-  <div class='dn-footer-bottom'>
+  <div class='p3-footer-bottom'>
     <p>&copy; 2026 Pulse of Perseverance Project. All rights reserved.</p>
-    <a class="dn-footer-link" href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
+    <a class="p3-footer-link" href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
   </div>
 </section>
 `;
   document.body.appendChild(root);
 
   // ═══ 5. BEHAVIOR ═══
-  // Nav scroll darken
-  var navEl = document.getElementById('dn-nav');
+  // Nav scroll darken (matches hp-shared-sections.js: toggle .p3-scrolled on .p3-nav)
+  var navEl = root.querySelector('.p3-nav');
   window.addEventListener('scroll', function() {
-    if (navEl) navEl.classList.toggle('dn-scrolled', window.scrollY > 40);
+    if (navEl) navEl.classList.toggle('p3-scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // Mobile menu toggle
-  var mobToggle = document.getElementById('dn-mobileToggle');
-  var mobOverlay = document.getElementById('dn-mobOverlay');
+  // Mobile menu toggle (matches hp-shared-sections.js: .pp-mob-menu ↔ .pp-mob-overlay, .open class)
+  var mobToggle = root.querySelector('.pp-mob-menu');
+  var mobOverlay = root.querySelector('.pp-mob-overlay');
   if (mobToggle && mobOverlay) {
     mobToggle.addEventListener('click', function() {
-      mobToggle.classList.toggle('dn-open');
-      mobOverlay.classList.toggle('dn-open');
-      document.body.style.overflow = mobOverlay.classList.contains('dn-open') ? 'hidden' : '';
+      mobToggle.classList.toggle('open');
+      mobOverlay.classList.toggle('open');
+      document.body.style.overflow = mobOverlay.classList.contains('open') ? 'hidden' : '';
     });
     mobOverlay.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', function() {
-        mobToggle.classList.remove('dn-open');
-        mobOverlay.classList.remove('dn-open');
+        mobToggle.classList.remove('open');
+        mobOverlay.classList.remove('open');
         document.body.style.overflow = '';
       });
     });
