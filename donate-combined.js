@@ -7,16 +7,14 @@
      CSS scoped with --dn- prefix vars.
      Source HTML: /Website Folder/Donate Page/index.html
      Mockup:      https://tparis7.github.io/Donate-Page/
-     Payments:    Monthly → Kindest (?frequency=monthly&amount=X)
-                  One-time → Kindest (?amount=X)
+     Payments:    Hero "Give Now" CTA → Kindest (no params)
+                  Monthly  → Donorbox  (?default_interval=m&amount=X)
+                  One-time → Donorbox  (?amount=X)
                   Workplace → Benevity (mailto:)
-                  NOTE: Kindest's donation page ignores amount params but does
-                  not redirect to a thank-you page when they're present. The
-                  amount chip selection still drives the URL for analytics + UX
-                  continuity, but the donor re-enters the amount on Kindest's
-                  secure checkout.
-                  IMPORTANT: do NOT add ?donation=1 — Kindest treats that as a
-                  completed-donation flag and redirects to a thank-you page.
+                  NOTE: Donorbox pre-fills the amount chip AND respects
+                  default_interval=m to pre-select the monthly toggle. Same
+                  fund slug (pulseofp3-monthly-scholarship-fund) serves both
+                  monthly + one-time panels; the URL params drive the UI.
      ══════════════════════════════════════════════════════════════ */
 
   // Guard against double execution
@@ -121,63 +119,37 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root button { font-family: inherit; cursor: pointer; border: none; background: none; text-transform: none; }
 #dn-root ul { list-style: none; }
 
-/* ═══════════ NAV — uses Webflow native .p3-nav styles (identical to FS page) ═══════════ */
-/* We inject .p3-nav / .p3-nav-links / .p3-nav-cta markup; Webflow's site-wide
-   stylesheet styles them exactly the way it styles FS, For Mentors, Partners,
-   etc. (position: fixed, padding 16px 40px, Satoshi typography, crimson CTA).
-   Only override needed: force display:flex/block because Webflow's global
-   rule defaults .p3-nav to display:none on pages that don't ship the V2
-   Nav symbol (this donate page uses the V1 legacy nav we hide above).
-   All the hard work — fonts, colors, sizing, responsive behavior — is done
-   by Webflow's global CSS, so this page looks identical to FS. */
-#dn-root .p3-nav { display: flex !important; }
-#dn-root .p3-nav.p3-scrolled {
-  background: rgba(26,26,26,0.95) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
-}
-/* Hide desktop-only "Home" link on desktop (matches FS's .pp-home-desktop-hide) */
-#dn-root .p3-nav .pp-home-desktop-hide { display: none; }
-@media (max-width: 991px) {
-  #dn-root .p3-nav .pp-home-desktop-hide { display: block; }
-}
+/* ═══════════ NAV BAR (ported verbatim from FS page fs-combined.js — guarantees pixel parity) ═══════════ */
+/* Root cause of prior mismatch: the .p3-nav / .p3-footer styling is NOT site-level Webflow
+   CSS — it ships INSIDE each page's combined JS as an inline <style> block. So we ship the
+   same block here. Rules are top-level (no #dn-root prefix) because they target the .p3-nav
+   / .p3-footer elements we inject at body root, matching exactly what FS does. Webflow's
+   native V2 Nav / V2 Footer (inside .header-wrapper / .page-wrapper) is hidden above, so
+   no conflict. */
+.p3-nav { position: fixed; top: 0; left: 0; right: 0; height: auto; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; background: transparent; transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s; z-index: 1000; }
+.p3-nav.scrolled { background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(20px) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+.p3-nav-logo { text-decoration: none; z-index: 10; }
+.p3-nav-logo-img { height: 36px; max-height: 36px; }
+.p3-nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+.p3-nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
+/* Active page link: NOT bold, matches other links exactly */
+.p3-nav-links a.w--current, .p3-nav-links a.p3-nav-link.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
+.p3-nav.scrolled .p3-nav-links a.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
+.pp-home-desktop-hide { display: none; }
+.p3-nav-cta { background: #D93A3A; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-left: 0; }
+.p3-nav-cta:hover { background: #b52f2f; transform: translateY(-1px); }
 
-/* Hamburger menu (matches FS / homepage .pp-mob-menu) */
-#dn-root .pp-mob-menu {
-  display: none; cursor: pointer; padding: 8px; z-index: 100;
-  flex-direction: column; gap: 5px; background: none; border: none;
-}
-#dn-root .pp-mob-menu span {
-  display: block; width: 22px; height: 2px;
-  background-color: #fff; border-radius: 2px; transition: all .3s ease;
-}
-#dn-root .pp-mob-menu.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 6px); }
-#dn-root .pp-mob-menu.open span:nth-child(2) { opacity: 0; }
-#dn-root .pp-mob-menu.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -6px); }
-@media (max-width: 991px) { #dn-root .pp-mob-menu { display: flex; } }
-
-/* Mobile overlay (matches FS / homepage .pp-mob-overlay) */
-#dn-root .pp-mob-overlay {
-  display: none; position: fixed; inset: 0; z-index: 999;
-  background: rgba(26,26,26,0.98);
-  flex-direction: column; align-items: center; justify-content: center;
-  gap: 24px;
-}
-#dn-root .pp-mob-overlay.open { display: flex !important; }
-#dn-root .pp-mob-overlay-link {
-  color: #fff; font-size: 1.4rem; font-weight: 600;
-  text-decoration: none; opacity: 0.8; transition: opacity .3s;
-  font-family: 'Space Grotesk', sans-serif;
-}
-#dn-root .pp-mob-overlay-link:hover { opacity: 1; }
-#dn-root .pp-mob-overlay-cta {
-  display: inline-flex; padding: 12px 28px; border-radius: 100px;
-  background: #D93A3A; color: #fff;
-  font-weight: 600; font-size: 1rem; text-decoration: none;
-  margin-top: 12px; transition: opacity .3s;
-}
-#dn-root .pp-mob-overlay-cta:hover { opacity: 0.9; }
+/* ═══════════ MOBILE MENU ═══════════ */
+.pp-mob-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+.pp-mob-menu span { width: 24px; height: 2.5px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+.pp-mob-menu.open span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+.pp-mob-menu.open span:nth-child(2) { opacity: 0; }
+.pp-mob-menu.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+.pp-mob-overlay { position: fixed; inset: 0; background-color: rgba(26, 10, 16, 0.97); z-index: 999; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 28px; opacity: 0; transform: translateY(-100%); transition: opacity 0.3s, transform 0.3s; overflow-y: auto; }
+.pp-mob-overlay.open { display: flex !important; opacity: 1; transform: translateY(0); }
+.pp-mob-overlay-link, .pp-mob-overlay-cta { font-family: 'Inter', sans-serif; font-size: 1.25rem; font-weight: 500; color: #fff; opacity: 0.85; text-decoration: none; transition: color 0.2s; }
+.pp-mob-overlay-link.w--current { opacity: 0.85 !important; font-weight: 500 !important; }
+.pp-mob-overlay-cta { opacity: 1; background: #D93A3A; color: #fff; padding: 12px 32px; border-radius: 100px; display: inline-block; text-align: center; margin-top: 8px; font-size: 1rem; font-weight: 600; }
 
 /* ═══════════ HERO ═══════════ */
 #dn-root .dn-hero {
@@ -802,21 +774,27 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-trust-link:hover { gap: 9px; }
 #dn-root .dn-trust-link svg { width: 13px; height: 13px; }
 
-/* ══════════════ FOOTER — uses Webflow native .p3-footer styles (identical to FS) ══════════════ */
-/* Same approach as nav: inject .p3-footer markup, Webflow's site-wide CSS
-   handles background #0A0A0A, padding 64px 40px 32px, grid 2fr 1fr 1fr 1fr,
-   .p3-footer-col-title Inter 11/700/1.5/uppercase, .p3-footer-link 13px,
-   .p3-footer-logo max-width 180px/height 36px, mobile 2-col grid, etc.
-   Only overrides needed: force display:block (Webflow default is none). */
-#dn-root .p3-footer { display: block !important; }
-#dn-root .p3-footer-grid { display: grid !important; }
-#dn-root .p3-footer-brand { display: flex !important; }
-#dn-root .p3-footer-bottom { display: flex !important; }
+/* ══════════════ FOOTER (ported verbatim from FS page fs-combined.js) ══════════════ */
+.p3-footer { background: #0a0a0a; padding: 64px 40px 32px; color: #fff; }
+.p3-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1180px; margin: 0 auto; }
+.p3-footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; margin-top: 12px; }
+.p3-footer-logo { height: 36px; margin-bottom: 8px; }
+.p3-footer-tagline { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; margin-top: 12px; }
+.p3-footer-location { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px; }
+.p3-footer-col-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+.p3-footer-col { display: flex; flex-direction: column; gap: 10px; }
+.p3-footer-link { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+.p3-footer-link:hover { color: #fff; }
+.p3-footer-bottom { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
 
 /* ══════════════ RESPONSIVE ══════════════ */
 @media (max-width: 991px) {
-  /* Webflow's global rule already shrinks .p3-nav to padding 16px / height 64px
-     and hides .p3-nav-links + .p3-nav-cta at ≤991px. Nothing to override here. */
+  /* Nav responsive (ported from FS) */
+  .pp-mob-menu { display: flex; }
+  .p3-nav-links, .p3-nav-cta { display: none !important; }
+  .p3-nav { padding: 16px !important; height: 64px !important; }
+  .p3-nav .p3-nav-logo-img { max-height: 36px !important; height: 36px !important; }
+
   #dn-root .dn-hero { padding: 96px 24px 40px; }
   #dn-root .dn-hero-inner { grid-template-columns: 1fr; gap: 32px; }
   #dn-root .dn-hero-visual { max-width: 440px; margin: 0 auto; }
@@ -892,7 +870,10 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-trust-card h4 { font-size: 12px; }
   #dn-root .dn-trust-card p { font-size: 12.5px; }
 
-  /* Webflow's global CSS handles .p3-footer mobile layout. No overrides. */
+  /* Footer responsive (ported from FS) */
+  .p3-footer-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 24px 16px !important; }
+  .p3-footer-brand { grid-column: 1 / -1; }
+  .p3-footer-bottom { flex-wrap: wrap; justify-content: center; text-align: center; }
 }
 @media (max-width: 440px) {
   #dn-root .dn-hero h1 { font-size: 1.5rem; line-height: 1.2; }
@@ -929,13 +910,13 @@ html.dn-active { scroll-behavior: smooth; }
     <a class='p3-nav-link' href="https://www.pulseofp3.org/about/about">About</a>
   </div>
   <a href="https://www.pulseofp3.org/download" class='p3-nav-cta'>Get the App</a>
-  <button class='pp-mob-menu' aria-label="Menu">
+  <div class='pp-mob-menu' id='hamburger' aria-label="Menu" role="button" tabindex="0">
     <span></span><span></span><span></span>
-  </button>
+  </div>
 </div>
 
-<!-- Mobile overlay (uses .pp-mob-overlay / .pp-mob-overlay-link / .pp-mob-overlay-cta — same as hp-shared-sections.js) -->
-<div class='pp-mob-overlay'>
+<!-- Mobile overlay (uses .pp-mob-overlay / .pp-mob-overlay-link / .pp-mob-overlay-cta — same as FS / hp-shared-sections.js) -->
+<div class='pp-mob-overlay' id='pp-mob-overlay'>
   <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org">Home</a>
   <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org/for-students">For Students</a>
   <a class='pp-mob-overlay-link' href="https://www.pulseofp3.org/partner">For Institutions</a>
@@ -996,7 +977,7 @@ html.dn-active { scroll-behavior: smooth; }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.4 0 4.6.9 6.2 2.5"/><polyline points="21 3 21 9 15 9"/></svg>
         <span class='dn-give-tab-body'>
           <span class='dn-tab-title'>Monthly</span>
-          <span class='dn-tab-sub'>Kindest</span>
+          <span class='dn-tab-sub'>Donorbox</span>
         </span>
         <span class='dn-tab-pill'>Most popular</span>
       </button>
@@ -1004,7 +985,7 @@ html.dn-active { scroll-behavior: smooth; }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         <span class='dn-give-tab-body'>
           <span class='dn-tab-title'>One-time</span>
-          <span class='dn-tab-sub'>Kindest</span>
+          <span class='dn-tab-sub'>Donorbox</span>
         </span>
       </button>
       <button class='dn-give-tab' data-tab="workplace" role="tab" aria-selected="false">
@@ -1016,7 +997,7 @@ html.dn-active { scroll-behavior: smooth; }
       </button>
     </div>
 
-    <!-- Panel: Monthly (Kindest, frequency=monthly) -->
+    <!-- Panel: Monthly (Donorbox, default_interval=m) -->
     <div class="dn-give-panel dn-active" id="panel-monthly">
       <div class='dn-panel-left'>
         <h3>Join the <span class="dn-accent">P3 Power Circle</span>.</h3>
@@ -1026,12 +1007,12 @@ html.dn-active { scroll-behavior: smooth; }
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Pause, change, or cancel anytime</span></div>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Quarterly impact reports from the field</span></div>
         </div>
-        <a href="https://kindest.com/the-pulse-of-perseverance?frequency=monthly&amount=25" target="_blank" rel="noopener" class='dn-panel-cta'
-           data-cta-base="https://kindest.com/the-pulse-of-perseverance?frequency=monthly" data-cta="monthly">
-          <span class='dn-cta-text'>Give <span class='dn-cta-amount'>$25</span>/mo on Kindest</span>
+        <a href="https://donorbox.org/pulseofp3-monthly-scholarship-fund?default_interval=m&amount=25" target="_blank" rel="noopener" class='dn-panel-cta'
+           data-cta-base="https://donorbox.org/pulseofp3-monthly-scholarship-fund?default_interval=m" data-cta="monthly">
+          <span class='dn-cta-text'>Give <span class='dn-cta-amount'>$25</span>/mo on Donorbox</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <div class='dn-panel-meta'>You'll confirm your amount on Kindest's secure checkout &middot; 0% platform fee</div>
+        <div class='dn-panel-meta'>Powered by Donorbox &middot; Apple Pay &amp; Google Pay supported</div>
       </div>
       <div class='dn-panel-right'>
         <h4>Suggested monthly gift</h4>
@@ -1048,7 +1029,7 @@ html.dn-active { scroll-behavior: smooth; }
       </div>
     </div>
 
-    <!-- Panel: One-time (Kindest) -->
+    <!-- Panel: One-time (Donorbox) -->
     <div class='dn-give-panel' id="panel-onetime">
       <div class='dn-panel-left'>
         <h3>Make a <span class="dn-accent">one-time gift</span>.</h3>
@@ -1058,12 +1039,12 @@ html.dn-active { scroll-behavior: smooth; }
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Instant tax-deductible receipt by email</span></div>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Option to dedicate your gift in honor of someone</span></div>
         </div>
-        <a href="https://kindest.com/the-pulse-of-perseverance?amount=250" target="_blank" rel="noopener" class='dn-panel-cta'
-           data-cta-base="https://kindest.com/the-pulse-of-perseverance" data-cta="onetime">
-          <span class='dn-cta-text'>Donate <span class='dn-cta-amount'>$250</span> on Kindest</span>
+        <a href="https://donorbox.org/pulseofp3-monthly-scholarship-fund?amount=250" target="_blank" rel="noopener" class='dn-panel-cta'
+           data-cta-base="https://donorbox.org/pulseofp3-monthly-scholarship-fund" data-cta="onetime">
+          <span class='dn-cta-text'>Donate <span class='dn-cta-amount'>$250</span> on Donorbox</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <div class='dn-panel-meta'>You'll confirm your amount on Kindest's secure checkout &middot; 0% platform fee</div>
+        <div class='dn-panel-meta'>Powered by Donorbox &middot; Apple Pay &amp; Google Pay supported</div>
       </div>
       <div class='dn-panel-right'>
         <h4>Suggested one-time gift</h4>
@@ -1327,33 +1308,33 @@ html.dn-active { scroll-behavior: smooth; }
       <a class="p3-footer-link" href="https://www.pulseofp3.org/donate">Donate</a>
     </div>
   </div>
-  <div class='p3-footer-bottom'>
-    <p>&copy; 2026 Pulse of Perseverance Project. All rights reserved.</p>
-    <a class="p3-footer-link" href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
+  <div class='p3-footer-bottom' style="display:flex;justify-content:center;align-items:center;gap:4px;padding-top:24px;flex-wrap:wrap;">
+    <p style="margin:0;color:rgba(255,255,255,0.4);font-size:12px;">&copy; 2026 Pulse of Perseverance Project. All rights reserved.</p>
+    <a href="https://www.pulseofp3.org/app-terms-conditions" class="p3-footer-link" style="font-size:12px;text-decoration:underline;color:rgba(255,255,255,0.4);">Terms &amp; Conditions</a>
   </div>
 </section>
 `;
   document.body.appendChild(root);
 
   // ═══ 5. BEHAVIOR ═══
-  // Nav scroll darken (matches hp-shared-sections.js: toggle .p3-scrolled on .p3-nav)
-  var navEl = root.querySelector('.p3-nav');
+  // Nav scroll darken (matches FS: toggle .scrolled on .p3-nav at scrollY>50)
+  var navEl = document.querySelector('.p3-nav');
   window.addEventListener('scroll', function() {
-    if (navEl) navEl.classList.toggle('p3-scrolled', window.scrollY > 40);
-  }, { passive: true });
+    if (navEl) navEl.classList.toggle('scrolled', window.scrollY > 50);
+  });
 
-  // Mobile menu toggle (matches hp-shared-sections.js: .pp-mob-menu ↔ .pp-mob-overlay, .open class)
-  var mobToggle = root.querySelector('.pp-mob-menu');
-  var mobOverlay = root.querySelector('.pp-mob-overlay');
-  if (mobToggle && mobOverlay) {
-    mobToggle.addEventListener('click', function() {
-      mobToggle.classList.toggle('open');
+  // Hamburger toggle (matches FS exactly: id="hamburger", id="pp-mob-overlay", .open class)
+  var hamburger = document.getElementById('hamburger');
+  var mobOverlay = document.getElementById('pp-mob-overlay');
+  if (hamburger && mobOverlay) {
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('open');
       mobOverlay.classList.toggle('open');
       document.body.style.overflow = mobOverlay.classList.contains('open') ? 'hidden' : '';
     });
     mobOverlay.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', function() {
-        mobToggle.classList.remove('open');
+        hamburger.classList.remove('open');
         mobOverlay.classList.remove('open');
         document.body.style.overflow = '';
       });
@@ -1378,10 +1359,10 @@ html.dn-active { scroll-behavior: smooth; }
   });
 
   // Amount chip selection → drive CTA URL + label
-  // Handles both Kindest bases:
-  //   Monthly  → https://kindest.com/the-pulse-of-perseverance?frequency=monthly  (+ &amount=X)
-  //   One-time → https://kindest.com/the-pulse-of-perseverance                    (+ ?amount=X)
-  // Do NOT add ?donation=1 (triggers Kindest thank-you page redirect).
+  // Handles both Donorbox bases:
+  //   Monthly  → https://donorbox.org/pulseofp3-monthly-scholarship-fund?default_interval=m  (+ &amount=X)
+  //   One-time → https://donorbox.org/pulseofp3-monthly-scholarship-fund                     (+ ?amount=X)
+  // The joiner (? vs &) is auto-detected below based on whether the base already has a query.
   function updateCta(panelKey, amount) {
     amount = parseInt(amount, 10);
     if (!amount || amount < 1) return;
