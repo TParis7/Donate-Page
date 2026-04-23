@@ -7,13 +7,16 @@
      CSS scoped with --dn- prefix vars.
      Source HTML: /Website Folder/Donate Page/index.html
      Mockup:      https://tparis7.github.io/Donate-Page/
-     Payments:    Monthly → Kindest (?donation=1&frequency=monthly&amount=X)
-                  One-time → Kindest (?donation=1&amount=X)
+     Payments:    Monthly → Kindest (?frequency=monthly&amount=X)
+                  One-time → Kindest (?amount=X)
                   Workplace → Benevity (mailto:)
-                  NOTE: Kindest's donation page ignores amount params (only reads
-                  ?donation=1 to auto-open the modal). The amount chip selection
-                  still drives the URL for analytics + UX continuity, but the
-                  donor re-enters the amount on Kindest's checkout.
+                  NOTE: Kindest's donation page ignores amount params but does
+                  not redirect to a thank-you page when they're present. The
+                  amount chip selection still drives the URL for analytics + UX
+                  continuity, but the donor re-enters the amount on Kindest's
+                  secure checkout.
+                  IMPORTANT: do NOT add ?donation=1 — Kindest treats that as a
+                  completed-donation flag and redirects to a thank-you page.
      ══════════════════════════════════════════════════════════════ */
 
   // Guard against double execution
@@ -39,7 +42,8 @@
   // Impact tile photos + dn-trust card logos live in the tparis7/Donate-Page GitHub repo.
   var IMG_BASE = 'https://tparis7.github.io/Donate-Page/';
 
-  // Ensure Inter + Space Grotesk are loaded
+  // Ensure Inter + Space Grotesk + Satoshi are loaded
+  // Satoshi matches FS/homepage .p3-nav-links typography (18/30/400).
   (function ensureFonts() {
     if (document.querySelector('link[data-dn-fonts]')) return;
     var pc1 = document.createElement('link');
@@ -51,11 +55,21 @@
     pc2.crossOrigin = 'anonymous';
     pc2.setAttribute('data-dn-fonts', '1');
     document.head.appendChild(pc2);
+    var pc3 = document.createElement('link');
+    pc3.rel = 'preconnect'; pc3.href = 'https://api.fontshare.com';
+    pc3.crossOrigin = 'anonymous';
+    pc3.setAttribute('data-dn-fonts', '1');
+    document.head.appendChild(pc3);
     var l = document.createElement('link');
     l.rel = 'stylesheet';
     l.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap';
     l.setAttribute('data-dn-fonts', '1');
     document.head.appendChild(l);
+    var sa = document.createElement('link');
+    sa.rel = 'stylesheet';
+    sa.href = 'https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap';
+    sa.setAttribute('data-dn-fonts', '1');
+    document.head.appendChild(sa);
   })();
 
   // ═══ 2. INJECT CSS — scoped to #dn-root with --dn- prefix ═══
@@ -103,9 +117,20 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root button { font-family: inherit; cursor: pointer; border: none; background: none; text-transform: none; }
 #dn-root ul { list-style: none; }
 
-/* ═══════════ NAV (homepage parity) ═══════════ */
+/* ═══════════ NAV (mirrors FS page .p3-nav exactly) ═══════════ */
+/* Structure: .dn-nav is the direct flex container (no inner wrapper), with
+   logo + .dn-nav-links (pushed right via margin-left:auto) + .dn-nav-cta +
+   .dn-mobile-toggle as direct children. Pixel-locked to FS computed values:
+   padding 16px 40px, gap 32px, links Satoshi 18/30/400, CTA Inter 14/30/600. */
 #dn-root .dn-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 16px 40px !important;
+  gap: 32px !important;
+  min-height: 0 !important;
+  height: auto !important;
   background: transparent;
   transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
 }
@@ -115,17 +140,11 @@ html.dn-active { scroll-behavior: smooth; }
   -webkit-backdrop-filter: blur(20px) !important;
   box-shadow: 0 2px 20px rgba(0,0,0,0.15);
 }
-/* Match homepage .p3-nav: full-width flex (NO max-width), padding 16px 40px, height driven by content (CTA 50 + 16+16 = 82). */
-#dn-root .dn-nav-inner {
-  max-width: none !important;
-  margin: 0 !important;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 40px !important;
-  min-height: 0 !important;
-  height: auto !important;
-}
 #dn-root .dn-nav-logo {
-  display: block; line-height: normal;
+  display: inline-block !important;
+  line-height: normal !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 #dn-root .dn-nav-logo img {
   height: 36px !important; max-height: 36px !important;
@@ -133,38 +152,49 @@ html.dn-active { scroll-behavior: smooth; }
   filter: brightness(0) invert(1);
 }
 #dn-root .dn-nav-links {
-  display: flex !important; align-items: center !important; gap: 32px !important;
-  margin-left: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 32px !important;
+  margin: 0 0 0 auto !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: none !important;
 }
 #dn-root .dn-nav-links a {
   display: block !important;
-  font-family: 'Inter', sans-serif !important;
-  font-size: 14px !important; font-weight: 500 !important;
+  font-family: 'Satoshi', 'Inter', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
   line-height: 30px !important;
   color: rgba(255,255,255,0.85) !important;
   letter-spacing: normal !important;
   text-transform: none !important;
   padding: 0 !important;
+  margin: 0 !important;
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto !important;
   transition: color 0.2s;
 }
 #dn-root .dn-nav-links a:hover { color: #fff !important; }
-/* Homepage .p3-nav-cta parity */
+/* FS page .p3-nav-cta parity: Inter 14/600, crimson pill, 10px 24px padding,
+   50px border-radius, height resolves to 50px (30px line + 10+10 padding). */
 #dn-root .dn-nav .dn-nav-cta {
-  display: flex !important; align-items: center !important; justify-content: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   background: var(--dn-crimson) !important;
   color: #fff !important;
   padding: 10px 24px !important;
   border-radius: 50px !important;
   font-family: 'Inter', sans-serif !important;
-  font-size: 14px !important; font-weight: 600 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
   line-height: 30px !important;
   letter-spacing: normal !important;
   text-transform: none !important;
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto !important;
-  margin-left: 24px;
+  margin: 0 !important;
   transition: all 0.2s;
   box-shadow: 0 2px 12px rgba(217,58,58,0.3);
 }
@@ -649,18 +679,27 @@ html.dn-active { scroll-behavior: smooth; }
   align-items: start;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-#dn-root .dn-patron-tier:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+#dn-root .dn-patron-tier:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+/* Tier backgrounds intentionally prominent: a colored tint across ~60% of the
+   card that fades to warm cream on the right, plus a thicker colored side
+   border, so the tier hierarchy reads at a glance without requiring hover. */
 #dn-root .dn-patron-tier.dn-tier-founders {
-  background: linear-gradient(135deg, rgba(217,58,58,0.06) 0%, #fff 65%);
-  border-color: rgba(217,58,58,0.22);
+  background: linear-gradient(105deg, rgba(217,58,58,0.22) 0%, rgba(217,58,58,0.10) 45%, rgba(217,58,58,0.02) 100%);
+  border: 1px solid rgba(217,58,58,0.45);
+  border-left: 6px solid var(--dn-crimson);
+  padding-left: 22px;
 }
 #dn-root .dn-patron-tier.dn-tier-champions {
-  background: linear-gradient(135deg, rgba(201,149,55,0.06) 0%, #fff 65%);
-  border-color: rgba(201,149,55,0.22);
+  background: linear-gradient(105deg, rgba(201,149,55,0.22) 0%, rgba(201,149,55,0.10) 45%, rgba(201,149,55,0.02) 100%);
+  border: 1px solid rgba(201,149,55,0.45);
+  border-left: 6px solid #C99537;
+  padding-left: 22px;
 }
 #dn-root .dn-patron-tier.dn-tier-visionaries {
-  background: linear-gradient(135deg, rgba(166,140,106,0.05) 0%, #fff 65%);
-  border-color: rgba(166,140,106,0.2);
+  background: linear-gradient(105deg, rgba(166,140,106,0.20) 0%, rgba(166,140,106,0.09) 45%, rgba(166,140,106,0.02) 100%);
+  border: 1px solid rgba(166,140,106,0.42);
+  border-left: 6px solid #A68C6A;
+  padding-left: 22px;
 }
 #dn-root .dn-tier-head { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
 #dn-root .dn-patron-icon {
@@ -826,68 +865,114 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-trust-link:hover { gap: 9px; }
 #dn-root .dn-trust-link svg { width: 13px; height: 13px; }
 
-/* ══════════════ FOOTER (mirrors homepage .p3-footer) ══════════════ */
+/* ══════════════ FOOTER (mirrors FS page .p3-footer exactly) ══════════════ */
+/* FS spec (1344vw):
+   .p3-footer         padding 64px 40px 32px, bg #0A0A0A, full width
+   .p3-footer-grid    display grid, cols 424px 212px 212px 212px, gap 40px,
+                       max-width 1180px, margin 0 42px, padding 0 0 40px
+   .p3-footer-col-title  H4, 11px/700, letter-spacing 1.5px, uppercase
+   .p3-footer-link    13px, color rgba(255,255,255,0.6), padding 3px 0
+   .p3-footer-bottom  flex row justify-center gap 4px, max-width 1200px,
+                       margin 40px 32px 0, padding 24px 0 0, 12px/rgba(.4) */
 #dn-root .dn-footer {
   background: #0A0A0A;
   color: rgba(255,255,255,0.5);
   padding: 64px 40px 32px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 30px;
 }
-#dn-root .dn-footer-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
+/* Accept both .dn-footer-inner (legacy) and .dn-footer-grid (FS-spec). */
+#dn-root .dn-footer-inner,
+#dn-root .dn-footer-grid {
+  display: grid !important;
+  grid-template-columns: 424px 212px 212px 212px !important;
+  gap: 40px !important;
+  max-width: 1180px !important;
+  margin: 0 42px !important;
+  padding: 0 0 40px !important;
 }
+#dn-root .dn-footer-brand { display: flex; flex-direction: column; width: 424px; max-width: 100%; }
 #dn-root .dn-footer-brand img {
   height: 36px; width: auto; display: block;
   filter: brightness(0) invert(1);
   opacity: 0.8; margin-bottom: 12px;
 }
 #dn-root .dn-footer-brand p.dn-footer-tagline {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 13px; line-height: 1.6;
   color: rgba(255,255,255,0.5);
   max-width: 280px;
   margin: 0;
 }
 #dn-root .dn-footer-brand p.dn-footer-location {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   font-size: 13px; line-height: 1.6;
   color: rgba(255,255,255,0.5);
   max-width: 280px;
   margin: 6px 0 0;
 }
-#dn-root .dn-footer-col h5 {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.8); margin-bottom: 14px;
+#dn-root .dn-footer-col {
+  display: flex; flex-direction: column; gap: 10px;
+  width: 212px; max-width: 100%;
 }
-#dn-root .dn-footer-col a {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-size: 13; color: rgba(255,255,255,0.6);
-  padding: 4px 0; transition: color 0.2s;
-  font-weight: 400;
+/* Column title: FS uses H4 class "p3-footer-col-title" @ 11/700/1.5/upper. */
+#dn-root .dn-footer-col h5,
+#dn-root .dn-footer-col h4,
+#dn-root .dn-footer-col-title {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: rgba(255,255,255,0.8) !important;
+  margin: 0 0 4px !important;
+  line-height: 1.4 !important;
 }
-#dn-root .dn-footer-col a { font-size: 13px; }
-#dn-root .dn-footer-col a:hover { color: #fff; }
+#dn-root .dn-footer-col a,
+#dn-root .dn-footer-link {
+  display: block !important;
+  font-family: 'Satoshi', 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  color: rgba(255,255,255,0.6) !important;
+  padding: 3px 0 !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+  transition: color 0.2s;
+}
+#dn-root .dn-footer-col a:hover,
+#dn-root .dn-footer-link:hover { color: #fff !important; }
 #dn-root .dn-footer-bottom {
-  max-width: 1200px; margin: 32px auto 0;
-  padding: 0 20px;
-  display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap; gap: 16px;
-  font-size: 12px; color: rgba(255,255,255,0.4);
+  max-width: 1200px;
+  margin: 40px 32px 0;
+  padding: 24px 0 0;
+  display: flex !important;
+  flex-direction: row;
+  justify-content: center !important;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px !important;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+#dn-root .dn-footer-bottom p,
+#dn-root .dn-footer-bottom div {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin: 0;
 }
 #dn-root .dn-footer-bottom a {
-  font-size: 12px; color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  padding: 3px 0;
   transition: color 0.2s;
 }
 #dn-root .dn-footer-bottom a:hover { color: #fff; }
 
 /* ══════════════ RESPONSIVE ══════════════ */
 @media (max-width: 991px) {
-  #dn-root .dn-nav-inner { padding: 16px !important; min-height: 64px !important; height: auto !important; }
+  #dn-root .dn-nav { padding: 16px !important; min-height: 64px !important; height: auto !important; }
   #dn-root .dn-nav-links { display: none !important; }
   #dn-root .dn-nav .dn-nav-cta { display: none !important; }
   #dn-root .dn-mobile-toggle { display: block; }
@@ -903,12 +988,22 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-impact-grid, #dn-root .dn-other-grid { grid-template-columns: repeat(2, 1fr); }
   #dn-root .dn-trust-grid { grid-template-columns: repeat(2, 1fr); }
   #dn-root .dn-hero-trust { gap: 20px; flex-wrap: wrap; }
-  #dn-root .dn-footer-inner { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
-  #dn-root .dn-footer-brand { grid-column: 1 / -1; }
+  #dn-root .dn-footer-inner,
+  #dn-root .dn-footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px 24px !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    padding: 0 0 32px !important;
+  }
+  #dn-root .dn-footer-brand { grid-column: 1 / -1; width: auto; }
+  #dn-root .dn-footer-col { width: auto; }
   #dn-root .dn-footer-brand p.dn-footer-tagline, #dn-root .dn-footer-brand p.dn-footer-location { max-width: 100%; }
 }
 @media (max-width: 768px) {
-  #dn-root .dn-hero { padding: 96px 20px 36px; min-height: 0; }
+  /* Mobile hero: fixed nav is 64px on mobile; 120px top-padding = 64 + 56px
+     breathing room so the h1 doesn't sit directly beneath the nav bar. */
+  #dn-root .dn-hero { padding: 120px 20px 40px; min-height: 0; }
   #dn-root .dn-hero-text { text-align: center; }
   #dn-root .dn-hero h1 { font-size: 1.75rem; line-height: 1.15; letter-spacing: -0.01em; }
   #dn-root .dn-hero-sub { font-size: 0.95rem; max-width: 100%; margin-left: auto; margin-right: auto; line-height: 1.6; }
@@ -968,9 +1063,15 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-trust-card p { font-size: 12.5px; }
 
   #dn-root .dn-footer { padding: 40px 20px 24px; }
-  #dn-root .dn-footer-inner { grid-template-columns: 1fr; gap: 28px; }
+  #dn-root .dn-footer-inner,
+  #dn-root .dn-footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    margin: 0 !important;
+    padding: 0 0 24px !important;
+  }
   #dn-root .dn-footer-brand { grid-column: auto; }
-  #dn-root .dn-footer-bottom { flex-direction: column; text-align: center; gap: 8px; margin-top: 24px; }
+  #dn-root .dn-footer-bottom { flex-direction: column; text-align: center; gap: 8px; margin: 24px 0 0; padding: 16px 0 0; }
 }
 @media (max-width: 600px) {
   #dn-root .dn-footer-brand img { height: 24px; }
@@ -997,23 +1098,21 @@ html.dn-active { scroll-behavior: smooth; }
   root.id = 'dn-root';
   root.innerHTML = `
 
-<!-- ═══ NAV ═══ -->
+<!-- ═══ NAV (mirrors FS page .p3-nav structure) ═══ -->
 <div class='dn-nav' id='dn-nav'>
-  <div class='dn-nav-inner'>
-    <a class='dn-nav-logo' href="https://www.pulseofp3.org" aria-label="Pulse of Perseverance Project">
-      <img src="${LOGO}" alt="The Pulse of Perseverance Project">
-    </a>
-    <div class='dn-nav-links' id="dn-navLinks">
-      <a href="https://www.pulseofp3.org/for-students">For Students</a>
-      <a href="https://www.pulseofp3.org/partner">For Institutions</a>
-      <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
-      <a href="https://www.pulseofp3.org/about/about">About</a>
-      <a href="https://www.pulseofp3.org/download" class='dn-nav-cta'>Get the App</a>
-    </div>
-    <button class='dn-mobile-toggle' id="dn-mobileToggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+  <a class='dn-nav-logo' href="https://www.pulseofp3.org" aria-label="Pulse of Perseverance Project">
+    <img src="${LOGO}" alt="The Pulse of Perseverance Project">
+  </a>
+  <div class='dn-nav-links' id="dn-navLinks">
+    <a href="https://www.pulseofp3.org/for-students">For Students</a>
+    <a href="https://www.pulseofp3.org/partner">For Institutions</a>
+    <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+    <a href="https://www.pulseofp3.org/about/about">About</a>
   </div>
+  <a href="https://www.pulseofp3.org/download" class='dn-nav-cta'>Get the App</a>
+  <button class='dn-mobile-toggle' id="dn-mobileToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </div>
 
 <!-- Mobile overlay -->
@@ -1108,8 +1207,8 @@ html.dn-active { scroll-behavior: smooth; }
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Pause, change, or cancel anytime</span></div>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Quarterly impact reports from the field</span></div>
         </div>
-        <a href="https://kindest.com/the-pulse-of-perseverance?donation=1&frequency=monthly&amount=25" target="_blank" rel="noopener" class='dn-panel-cta'
-           data-cta-base="https://kindest.com/the-pulse-of-perseverance?donation=1&frequency=monthly" data-cta="monthly">
+        <a href="https://kindest.com/the-pulse-of-perseverance?frequency=monthly&amount=25" target="_blank" rel="noopener" class='dn-panel-cta'
+           data-cta-base="https://kindest.com/the-pulse-of-perseverance?frequency=monthly" data-cta="monthly">
           <span class='dn-cta-text'>Give <span class='dn-cta-amount'>$25</span>/mo on Kindest</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -1140,8 +1239,8 @@ html.dn-active { scroll-behavior: smooth; }
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Instant tax-deductible receipt by email</span></div>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Option to dedicate your gift in honor of someone</span></div>
         </div>
-        <a href="https://kindest.com/the-pulse-of-perseverance?donation=1&amount=250" target="_blank" rel="noopener" class='dn-panel-cta'
-           data-cta-base="https://kindest.com/the-pulse-of-perseverance?donation=1" data-cta="onetime">
+        <a href="https://kindest.com/the-pulse-of-perseverance?amount=250" target="_blank" rel="noopener" class='dn-panel-cta'
+           data-cta-base="https://kindest.com/the-pulse-of-perseverance" data-cta="onetime">
           <span class='dn-cta-text'>Donate <span class='dn-cta-amount'>$250</span> on Kindest</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -1379,41 +1478,41 @@ html.dn-active { scroll-behavior: smooth; }
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer class='dn-footer'>
-  <div class='dn-footer-inner'>
+<!-- ═══ FOOTER (mirrors FS page .p3-footer structure exactly) ═══ -->
+<section class='dn-footer'>
+  <div class='dn-footer-grid dn-footer-inner'>
     <div class='dn-footer-brand'>
       <img src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b04a49d86c8d9ea145304a_p3-logo-horizontal.png" alt="Pulse of Perseverance Project">
       <p class='dn-footer-tagline'>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
       <p class='dn-footer-location'>Chicago, IL &middot; Founded 2018</p>
     </div>
     <div class="dn-footer-col">
-      <h5>Platform</h5>
-      <a href="https://www.pulseofp3.org/for-students">For Students</a>
-      <a href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
-      <a href="https://www.pulseofp3.org/partner">For Institutions</a>
-      <a href="https://www.pulseofp3.org/scholarships">Scholarships</a>
+      <h4 class="dn-footer-col-title">Platform</h4>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/for-students">For Students</a>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/partner">For Institutions</a>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/scholarships">Scholarships</a>
     </div>
     <div class="dn-footer-col">
-      <h5>About</h5>
-      <a href="https://www.pulseofp3.org/about/about">Our Story</a>
-      <a href="https://www.pulseofp3.org/about/about#team">Team</a>
-      <a href="https://drive.google.com/file/d/1IrFocCsboO6mLZsG3GAlHjmKv_V7a9Sn/view?usp=drive_link" target="_blank" rel="noopener">Annual Report</a>
-      <a href="https://www.pulseofp3.org/about/in-the-press">Press</a>
+      <h4 class="dn-footer-col-title">About</h4>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/about/about">Our Story</a>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/about/about#team">Team</a>
+      <a class="dn-footer-link" href="https://drive.google.com/file/d/1IrFocCsboO6mLZsG3GAlHjmKv_V7a9Sn/view?usp=drive_link" target="_blank" rel="noopener">Annual Report</a>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/about/in-the-press">Press</a>
     </div>
     <div class="dn-footer-col">
-      <h5>Connect</h5>
-      <a href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.linkedin.com/company/pulseofperserverance" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://www.youtube.com/@PulseofPerseveranceProject" target="_blank" rel="noopener">YouTube</a>
-      <a href="https://www.pulseofp3.org/donate">Donate</a>
+      <h4 class="dn-footer-col-title">Connect</h4>
+      <a class="dn-footer-link" href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener">Instagram</a>
+      <a class="dn-footer-link" href="https://www.linkedin.com/company/pulseofperserverance" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="dn-footer-link" href="https://www.youtube.com/@PulseofPerseveranceProject" target="_blank" rel="noopener">YouTube</a>
+      <a class="dn-footer-link" href="https://www.pulseofp3.org/donate">Donate</a>
     </div>
   </div>
   <div class='dn-footer-bottom'>
-    <div>&copy; 2026 Pulse of Perseverance Project. All rights reserved.</div>
-    <a href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
+    <p>&copy; 2026 Pulse of Perseverance Project. All rights reserved.</p>
+    <a class="dn-footer-link" href="https://www.pulseofp3.org/app-terms-conditions">Terms &amp; Conditions</a>
   </div>
-</footer>
+</section>
 `;
   document.body.appendChild(root);
 
@@ -1461,9 +1560,9 @@ html.dn-active { scroll-behavior: smooth; }
 
   // Amount chip selection → drive CTA URL + label
   // Handles both Kindest bases:
-  //   Monthly  → https://kindest.com/the-pulse-of-perseverance?donation=1&frequency=monthly  (+ &amount=X)
-  //   One-time → https://kindest.com/the-pulse-of-perseverance?donation=1                    (+ &amount=X)
-  // Kindest only reads ?donation=1 (opens modal); amount is preserved for analytics only.
+  //   Monthly  → https://kindest.com/the-pulse-of-perseverance?frequency=monthly  (+ &amount=X)
+  //   One-time → https://kindest.com/the-pulse-of-perseverance                    (+ ?amount=X)
+  // Do NOT add ?donation=1 (triggers Kindest thank-you page redirect).
   function updateCta(panelKey, amount) {
     amount = parseInt(amount, 10);
     if (!amount || amount < 1) return;
