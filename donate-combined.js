@@ -1,6 +1,15 @@
 (function() {
   /* ══════════════════════════════════════════════════════════════
-     donate-combined.js v1.0.0 — Donate page injection.
+     donate-combined.js v1.0.1 — Donate page injection.
+     ----
+     v1.0.1 (2026-04-24): Mobile hero parity pass vs. FS.
+       • Hero h1 at ≤440: 1.5rem → 1.75rem (match FS, which stays 1.75rem).
+       • Hero trust stats at ≤768: switch from flex+wrap to
+         grid repeat(3,1fr) so all 3 stats stay on ONE row.
+         Long label "In monthly scholarships" was forcing a wrap.
+       • Label font-sizes tightened (0.7→0.68 @ 768, 0.65→0.62 @ 440)
+         and line-height added so 2-line labels sit cleanly.
+     ----
      Mirrors Pulse Summit / Mentorship Guide pattern: hide Webflow
      native chrome (this page ships its own dn-nav + footer), then
      inject the full Donate HTML/CSS into a scoped #dn-root. All
@@ -822,13 +831,18 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-hero-sub { font-size: 0.95rem; max-width: 100%; margin-left: auto; margin-right: auto; line-height: 1.6; }
   #dn-root .dn-hero-actions { flex-direction: column; align-items: stretch; }
   #dn-root .dn-hero-actions .dn-btn-primary, #dn-root .dn-hero-actions .dn-btn-ghost { justify-content: center; padding: 14px 24px; font-size: 14px; }
+  /* Force 3-up grid on mobile so the trust stats stay on ONE row.
+     Flex+wrap was letting the wide "In monthly scholarships" label push
+     the third stat to a second row. Grid guarantees equal thirds;
+     labels wrap inside their column instead. */
   #dn-root .dn-hero-trust {
-    gap: 18px; margin-top: 26px; padding-top: 22px;
-    justify-content: center; text-align: center;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin-top: 26px; padding-top: 22px;
+    justify-items: center; text-align: center;
   }
   #dn-root .dn-hero-trust-stat { align-items: center; }
   #dn-root .dn-hero-trust-stat .dn-num { font-size: 1.4rem; letter-spacing: -0.01em; }
-  #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.7rem; letter-spacing: 0.3px; }
+  #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.68rem; letter-spacing: 0.3px; line-height: 1.3; }
 
   #dn-root .dn-impact-card { display: none !important; }
   #dn-root .dn-give-now, #dn-root .dn-impact-section, #dn-root .dn-other-ways, #dn-root .dn-trust, #dn-root .dn-patrons {
@@ -881,12 +895,14 @@ html.dn-active { scroll-behavior: smooth; }
   .p3-footer-bottom { flex-wrap: wrap; justify-content: center; text-align: center; }
 }
 @media (max-width: 440px) {
-  #dn-root .dn-hero h1 { font-size: 1.5rem; line-height: 1.2; }
+  /* Keep h1 at 1.75rem to match FS at this width (FS drops to 1.75rem at
+     ≤768 and STAYS 1.75rem at ≤480 — don't shrink further). */
+  #dn-root .dn-hero h1 { font-size: 1.75rem; line-height: 1.15; }
   #dn-root .dn-hero-sub { font-size: 0.9rem; }
-  #dn-root .dn-hero-trust-stat .dn-num { font-size: 1.25rem; }
-  #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.65rem; }
+  #dn-root .dn-hero-trust-stat .dn-num { font-size: 1.2rem; }
+  #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.62rem; line-height: 1.3; }
   #dn-root .dn-impact-stats { grid-template-columns: 1fr; }
-  #dn-root .dn-hero-trust { gap: 14px; }
+  #dn-root .dn-hero-trust { gap: 8px; }
   #dn-root .dn-tab-title { font-size: 12px; }
   #dn-root .dn-trust-grid { gap: 10px; }
 }
