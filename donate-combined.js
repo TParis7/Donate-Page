@@ -153,7 +153,7 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-hero {
   position: relative;
   padding: 100px 0 40px;
-  min-height: 550px;
+  min-height: 587px;
   display: flex;
   align-items: center;
   background:
@@ -810,7 +810,7 @@ html.dn-active { scroll-behavior: smooth; }
 @media (max-width: 768px) {
   /* Mobile hero: fixed nav is 64px on mobile; 120px top-padding = 64 + 56px
      breathing room so the h1 doesn't sit directly beneath the nav bar. */
-  #dn-root .dn-hero { padding: 120px 20px 40px; min-height: 0; }
+  #dn-root .dn-hero { padding: 120px 20px 40px; min-height: 690px; }
   #dn-root .dn-hero-text { text-align: center; }
   #dn-root .dn-hero h1 { font-size: 1.75rem; line-height: 1.15; letter-spacing: -0.01em; }
   #dn-root .dn-hero-sub { font-size: 0.95rem; max-width: 100%; margin-left: auto; margin-right: auto; line-height: 1.6; }
@@ -1288,8 +1288,8 @@ html.dn-active { scroll-behavior: smooth; }
     <div class="p3-footer-col">
       <h4 class="p3-footer-col-title">Platform</h4>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/for-students">For Students</a>
-      <a class="p3-footer-link" href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/partner">For Institutions</a>
+      <a class="p3-footer-link" href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/scholarships">Scholarships</a>
     </div>
     <div class="p3-footer-col">
