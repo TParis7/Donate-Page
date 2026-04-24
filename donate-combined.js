@@ -177,7 +177,7 @@ html.dn-active { scroll-behavior: smooth; }
   max-width: 1180px; margin: 0 auto;
   padding: 0 24px;
   display: grid; grid-template-columns: 1.1fr 1fr;
-  gap: 56px; align-items: center;
+  gap: 56px; align-items: start;
   position: relative; z-index: 2;
 }
 #dn-root .dn-hero-badge {
@@ -204,7 +204,7 @@ html.dn-active { scroll-behavior: smooth; }
   max-width: 540px; margin-bottom: 28px;
   line-height: 1.7;
 }
-#dn-root .dn-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+#dn-root .dn-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 #dn-root .dn-btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--dn-crimson); color: #fff;
