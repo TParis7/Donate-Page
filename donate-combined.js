@@ -155,7 +155,7 @@ html.dn-active { scroll-behavior: smooth; }
   padding: 100px 0 40px;
   min-height: 587px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   background:
     radial-gradient(ellipse 60% 50% at 20% 40%, rgba(217,58,58,0.18), transparent 60%),
     radial-gradient(ellipse 50% 60% at 85% 70%, rgba(74,16,32,0.4), transparent 65%),
@@ -181,7 +181,11 @@ html.dn-active { scroll-behavior: smooth; }
   position: relative; z-index: 2;
 }
 #dn-root .dn-hero-badge {
-  display: inline-flex; align-items: center; gap: 10px;
+  /* Hidden to align the hero stats divider with the FS/FM pages.
+     Un-hide by removing the display:none override if you want the badge back
+     (it will shift the divider ~54px lower than FS again). */
+  display: none;
+  align-items: center; gap: 10px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: 100px; padding: 7px 18px; margin-bottom: 22px;
@@ -193,7 +197,7 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-hero h1 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 50px; font-weight: 700;
-  line-height: 1.2; letter-spacing: normal;
+  line-height: 1.15; letter-spacing: normal;
   color: #fff; margin-bottom: 16px;
 }
 #dn-root .dn-hero h1 .dn-accent { color: var(--dn-crimson); }
