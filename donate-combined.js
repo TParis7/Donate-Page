@@ -814,7 +814,9 @@ html.dn-active { scroll-behavior: smooth; }
 @media (max-width: 768px) {
   /* Mobile hero: fixed nav is 64px on mobile; 120px top-padding = 64 + 56px
      breathing room so the h1 doesn't sit directly beneath the nav bar. */
-  #dn-root .dn-hero { padding: 120px 20px 40px; min-height: 690px; }
+  /* Mobile hero matches FS: auto-height so it only grows to fit content
+     (no empty maroon gap below stats), 48px bottom padding to match FS. */
+  #dn-root .dn-hero { padding: 120px 20px 48px; min-height: auto; }
   #dn-root .dn-hero-text { text-align: center; }
   #dn-root .dn-hero h1 { font-size: 1.75rem; line-height: 1.15; letter-spacing: -0.01em; }
   #dn-root .dn-hero-sub { font-size: 0.95rem; max-width: 100%; margin-left: auto; margin-right: auto; line-height: 1.6; }
