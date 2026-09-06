@@ -1339,7 +1339,7 @@ html.dn-active { scroll-behavior: smooth; }
   </div>
   <div class='p3-footer-bottom' style="display:flex;justify-content:center;align-items:center;gap:4px;padding-top:24px;flex-wrap:wrap;">
     <p style="margin:0;color:rgba(255,255,255,0.4);font-size:12px;">&copy; 2026 Pulse of Perseverance Project. All rights reserved.</p>
-    <a href="https://www.pulseofp3.org/app-terms-conditions" class="p3-footer-link" style="font-size:12px;text-decoration:underline;color:rgba(255,255,255,0.4);">Terms &amp; Conditions</a>
+    <a href="https://www.pulseofp3.org/app-terms-conditions" class="p3-footer-link" style="font-size:12px;text-decoration:underline;color:rgba(255,255,255,0.4);">Terms &amp; Policies</a>
   </div>
 </section>
 `;
