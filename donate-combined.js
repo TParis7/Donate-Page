@@ -57,8 +57,7 @@
   // Impact tile photos + dn-trust card logos live in the tparis7/Donate-Page GitHub repo.
   var IMG_BASE = 'https://tparis7.github.io/Donate-Page/';
 
-  // Ensure Inter + Space Grotesk + Satoshi are loaded
-  // Satoshi matches FS/homepage .p3-nav-links typography (18/30/400).
+  // Ensure Plus Jakarta Sans + Bricolage Grotesque are loaded
   (function ensureFonts() {
     if (document.querySelector('link[data-dn-fonts]')) return;
     var pc1 = document.createElement('link');
@@ -70,21 +69,11 @@
     pc2.crossOrigin = 'anonymous';
     pc2.setAttribute('data-dn-fonts', '1');
     document.head.appendChild(pc2);
-    var pc3 = document.createElement('link');
-    pc3.rel = 'preconnect'; pc3.href = 'https://api.fontshare.com';
-    pc3.crossOrigin = 'anonymous';
-    pc3.setAttribute('data-dn-fonts', '1');
-    document.head.appendChild(pc3);
     var l = document.createElement('link');
     l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap';
+    l.href = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400..800&display=swap';
     l.setAttribute('data-dn-fonts', '1');
     document.head.appendChild(l);
-    var sa = document.createElement('link');
-    sa.rel = 'stylesheet';
-    sa.href = 'https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap';
-    sa.setAttribute('data-dn-fonts', '1');
-    document.head.appendChild(sa);
   })();
 
   // ═══ 2. INJECT CSS — scoped to #dn-root with --dn- prefix ═══
@@ -126,11 +115,11 @@ html.dn-active { scroll-behavior: smooth; }
 /* ─── Universal reset inside #dn-root ─── */
 #dn-root *, #dn-root *::before, #dn-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
 #dn-root {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--dn-dark); background: #fff;
   line-height: 1.6; -webkit-font-smoothing: antialiased;
 }
-#dn-root h1, #dn-root h2, #dn-root h3, #dn-root h4 { font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+#dn-root h1, #dn-root h2, #dn-root h3, #dn-root h4 { font-family: 'Bricolage Grotesque', sans-serif; line-height: 1.2; }
 #dn-root a { color: inherit; text-decoration: none; text-transform: none; }
 #dn-root img { max-width: 100%; display: block; }
 #dn-root button { font-family: inherit; cursor: pointer; border: none; background: none; text-transform: none; }
@@ -146,12 +135,12 @@ html.dn-active { scroll-behavior: smooth; }
 .p3-nav-logo { text-decoration: none; z-index: 10; }
 .p3-nav-logo-img { height: 36px; max-height: 36px; }
 .p3-nav-links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
-.p3-nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
+.p3-nav-links a { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
 /* Active page link: NOT bold, matches other links exactly */
 .p3-nav-links a.w--current, .p3-nav-links a.p3-nav-link.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
 .p3-nav.scrolled .p3-nav-links a.w--current { color: rgba(255,255,255,0.85) !important; font-weight: 500 !important; }
 .pp-home-desktop-hide { display: none; }
-.p3-nav-cta { background: #D93A3A; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-left: 0; }
+.p3-nav-cta { background: #D93A3A; color: #fff !important; padding: 10px 24px; border-radius: 50px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-left: 0; }
 .p3-nav-cta:hover { background: #b52f2f; transform: translateY(-1px); }
 
 /* ═══════════ MOBILE MENU (COPIED VERBATIM FROM FS) ═══════════ */
@@ -162,7 +151,7 @@ html.dn-active { scroll-behavior: smooth; }
 .pp-mob-menu.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
 .pp-mob-overlay { position: fixed; inset: 0; background-color: rgba(26, 10, 16, 0.97); z-index: 999; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 28px; opacity: 0; transform: translateY(-100%); transition: opacity 0.3s, transform 0.3s; overflow-y: auto; }
 .pp-mob-overlay.open { display: flex !important; opacity: 1; transform: translateY(0); }
-.pp-mob-overlay-link, .pp-mob-overlay-cta { font-family: 'Inter', sans-serif; font-size: 1.25rem; font-weight: 500; color: #fff; opacity: 0.85; text-decoration: none; transition: color 0.2s; }
+.pp-mob-overlay-link, .pp-mob-overlay-cta { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.25rem; font-weight: 500; color: #fff; opacity: 0.85; text-decoration: none; transition: color 0.2s; }
 .pp-mob-overlay-link.w--current { opacity: 0.85 !important; font-weight: 500 !important; }
 .pp-mob-overlay-cta { opacity: 1; background: #D93A3A; color: #fff; padding: 12px 32px; border-radius: 100px; display: inline-block; text-align: center; margin-top: 8px; font-size: 1rem; font-weight: 600; }
 
@@ -212,7 +201,7 @@ html.dn-active { scroll-behavior: smooth; }
   backdrop-filter: blur(8px);
 }
 #dn-root .dn-hero h1 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 50px; font-weight: 700;
   line-height: 1.15; letter-spacing: normal;
   color: #fff; margin-bottom: 16px;
@@ -259,7 +248,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-hero-trust-stat { display: flex; flex-direction: column; }
 #dn-root .dn-hero-trust-stat .dn-num {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.4rem; font-weight: 700;
   color: #fff; line-height: 1.2;
 }
@@ -292,7 +281,7 @@ html.dn-active { scroll-behavior: smooth; }
   pointer-events: none;
 }
 #dn-root .dn-impact-card h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 20px; font-weight: 700;
   color: #fff; margin-bottom: 6px;
   letter-spacing: -0.01em;
@@ -309,7 +298,7 @@ html.dn-active { scroll-behavior: smooth; }
   border-radius: 12px; padding: 16px 18px;
 }
 #dn-root .dn-impact-stat .dn-num {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 26px; font-weight: 700;
   color: #fff; line-height: 1; letter-spacing: -0.01em;
 }
@@ -352,7 +341,7 @@ html.dn-active { scroll-behavior: smooth; }
 
 #dn-root .dn-section-header { text-align: center; margin-bottom: 28px; }
 #dn-root .dn-section-header h2 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: clamp(28px, 3.2vw, 40px); font-weight: 700;
   line-height: 1.2; letter-spacing: normal;
   max-width: 720px; margin: 0 auto;
@@ -385,7 +374,7 @@ html.dn-active { scroll-behavior: smooth; }
   padding: 14px 16px;
   border-radius: 12px;
   background: transparent;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 14px; font-weight: 600;
   color: var(--dn-light-text);
   transition: all 0.25s;
@@ -423,7 +412,7 @@ html.dn-active { scroll-behavior: smooth; }
 @keyframes dnPanelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 #dn-root .dn-panel-left h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 26px; font-weight: 700;
   color: var(--dn-dark); letter-spacing: normal;
   line-height: 1.2; margin-bottom: 10px;
@@ -447,7 +436,7 @@ html.dn-active { scroll-behavior: smooth; }
   background: var(--dn-crimson); color: #fff;
   padding: 14px 26px;
   border-radius: 50px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 15px; font-weight: 600;
   line-height: 1;
   transition: all var(--dn-transition);
@@ -455,7 +444,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-panel-cta .dn-cta-text { display: inline-flex; align-items: baseline; white-space: nowrap; }
 #dn-root .dn-panel-cta .dn-cta-amount {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 700; margin: 0 2px;
 }
 #dn-root .dn-panel-cta:hover {
@@ -474,7 +463,7 @@ html.dn-active { scroll-behavior: smooth; }
   padding: 24px;
 }
 #dn-root .dn-panel-right h4 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
   text-transform: uppercase; color: var(--dn-light-text);
   margin-bottom: 14px;
@@ -489,7 +478,7 @@ html.dn-active { scroll-behavior: smooth; }
   border-radius: 12px;
   padding: 14px 10px;
   text-align: center;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 700; font-size: 18px;
   color: var(--dn-dark);
   transition: all 0.2s;
@@ -504,7 +493,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-amount-chip .dn-impact {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 10.5px; font-weight: 500;
   color: var(--dn-light-text);
   margin-top: 3px; letter-spacing: 0.2px;
@@ -517,7 +506,7 @@ html.dn-active { scroll-behavior: smooth; }
   display: flex; align-items: center; justify-content: center; gap: 10px;
 }
 #dn-root .dn-amount-chip.dn-custom input {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 700; font-size: 16px;
   background: transparent; border: none; outline: none;
   color: var(--dn-dark); width: 80px; text-align: center;
@@ -531,7 +520,7 @@ html.dn-active { scroll-behavior: smooth; }
   font-size: 12px; color: var(--dn-light-text);
 }
 #dn-root .dn-benev-id {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 700; color: var(--dn-dark); font-size: 13px;
   background: #fff; border: 1px solid var(--dn-border);
   padding: 6px 12px; border-radius: 8px;
@@ -571,7 +560,7 @@ html.dn-active { scroll-behavior: smooth; }
   gap: 8px; flex: 1;
 }
 #dn-root .dn-impact-tile h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.15rem; font-weight: 700;
   color: var(--dn-dark); margin: 0;
   letter-spacing: normal; line-height: 1.25;
@@ -580,7 +569,7 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-impact-tile-stat {
   display: inline-flex; align-items: baseline; gap: 5px;
   margin-top: 8px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 700;
 }
 #dn-root .dn-impact-tile-stat .dn-num { font-size: 1.35rem; color: var(--dn-crimson); letter-spacing: -0.01em; }
@@ -644,7 +633,7 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-patron-tier.dn-tier-champions  .dn-patron-icon { background: rgba(201,149,55,0.14); color: #B8862E; }
 #dn-root .dn-patron-tier.dn-tier-visionaries .dn-patron-icon { background: rgba(166,140,106,0.15); color: #8F7857; }
 #dn-root .dn-tier-name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.05rem; font-weight: 700;
   color: var(--dn-dark); line-height: 1.2;
 }
@@ -652,13 +641,13 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-patron-tier.dn-tier-champions .dn-tier-name { color: #B8862E; }
 #dn-root .dn-patron-tier.dn-tier-visionaries .dn-tier-name { color: #8F7857; }
 #dn-root .dn-tier-amt {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px; font-weight: 600;
   color: var(--dn-light-text);
   letter-spacing: 0.6px; text-transform: uppercase;
 }
 #dn-root .dn-tier-names {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.95rem; color: var(--dn-dark);
   line-height: 1.9; letter-spacing: 0;
 }
@@ -669,7 +658,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-patrons-cta {
   margin-top: 22px; text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px; color: var(--dn-light-text);
 }
 #dn-root .dn-patrons-cta a {
@@ -719,7 +708,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-other-icon svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; }
 #dn-root .dn-other-card h3 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 20px; font-weight: 700;
   color: #fff; margin-bottom: 8px;
   letter-spacing: normal; line-height: 1.2;
@@ -761,7 +750,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-trust-logo {
   height: 44px; display: flex; align-items: center;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-weight: 800; letter-spacing: -0.01em;
   margin-bottom: 4px;
 }
@@ -778,7 +767,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-trust-card p { font-size: 13px; color: var(--dn-light-text); line-height: 1.5; flex: 1; }
 #dn-root .dn-trust-card .dn-trust-meta {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 12px; color: var(--dn-dark); font-weight: 600;
   padding: 6px 10px; background: var(--dn-warm-gray);
   border-radius: 8px; align-self: flex-start;
@@ -801,7 +790,7 @@ html.dn-active { scroll-behavior: smooth; }
 .p3-footer-logo { height: 36px; margin-bottom: 8px; }
 .p3-footer-tagline { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; margin-top: 12px; }
 .p3-footer-location { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px; }
-.p3-footer-col-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+.p3-footer-col-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
 .p3-footer-col { display: flex; flex-direction: column; gap: 10px; }
 .p3-footer-link { color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; transition: color 0.2s; }
 .p3-footer-link:hover { color: #fff; }
@@ -914,6 +903,9 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-tab-title { font-size: 12px; }
   #dn-root .dn-trust-grid { gap: 10px; }
 }
+
+/* Chrome family (Sep 2026 parity pass). Family only: the nav, overlay and footer are body-level siblings that inherit Webflow's body line-height (30.006px), the value every nav measurement depends on, so line-height is never set here. Element selectors as well as the containers, because Webflow's compiled stylesheet sets Inter directly on .p3-nav-cta, .p3-footer-col-title, .p3-footer-tagline and .pp-mob-overlay-link, and a direct rule beats inheritance. */
+.p3-nav, .pp-mob-overlay, .p3-footer, .p3-nav .p3-nav-links a, .p3-nav .p3-nav-link, .p3-nav .p3-nav-cta, .pp-mob-overlay a, .pp-mob-overlay .pp-mob-overlay-link, .pp-mob-overlay .pp-mob-overlay-cta, .p3-footer h4, .p3-footer p, .p3-footer a, .p3-footer .p3-footer-col-title, .p3-footer .p3-footer-tagline, .p3-footer .p3-footer-location, .p3-footer .p3-footer-link { font-family: 'Plus Jakarta Sans', sans-serif; }
 `;
   document.head.appendChild(style);
 
@@ -1348,7 +1340,7 @@ html.dn-active { scroll-behavior: smooth; }
   // ═══ 4b. RE-PARENT NAV + OVERLAY + FOOTER OUT OF #dn-root ═══
   // CRITICAL: FS/FM inject .p3-nav / .pp-mob-overlay / .p3-footer as SIBLINGS of #fm-root
   // (direct children of body). Donate originally nested them INSIDE #dn-root, which made
-  // them inherit #dn-root's `font-family: Inter; line-height: 1.6` instead of body's
+  // them inherit #dn-root's `font-family: 'Plus Jakarta Sans'; line-height: 1.6` instead of body's
   // Webflow-site-level `font-family: Satoshi; line-height: 30.006px`. Result: visibly
   // thinner fonts, shorter nav, footer misalignment vs FS. Moving them to body-level
   // siblings gives them the correct Webflow inheritance chain and makes nav/footer
