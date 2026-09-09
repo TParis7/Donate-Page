@@ -323,7 +323,7 @@ html.dn-active { scroll-behavior: smooth; }
   border-radius: 50px; overflow: hidden;
 }
 #dn-root .dn-impact-fill {
-  width: 32.87%; height: 100%;
+  width: 40%; height: 100%;
   background: linear-gradient(90deg, var(--dn-crimson), #ff6b6b);
   border-radius: 50px;
   box-shadow: 0 0 20px rgba(217,58,58,0.4);
@@ -976,7 +976,7 @@ html.dn-active { scroll-behavior: smooth; }
           <div class='dn-impact-stat'><div class='dn-num'>94<span class='dn-unit'>%</span></div><div class='dn-lbl'>Program retention rate</div></div>
         </div>
         <div class='dn-impact-progress'>
-          <div class='dn-impact-progress-row'><span>Path to 3,000 students</span><strong>1,000 / 3,000</strong></div>
+          <div class='dn-impact-progress-row'><span>Path to 3,000 students</span><strong>1,200 / 3,000</strong></div>
           <div class='dn-impact-track'><div class='dn-impact-fill'></div></div>
         </div>
       </div>
@@ -1137,7 +1137,7 @@ html.dn-active { scroll-behavior: smooth; }
         <div class='dn-impact-tile-body'>
           <h3>Mentor Matching</h3>
           <p>Your gift covers the vetting, onboarding, and AI-powered smart matching of professional mentors to mentees who need them.</p>
-          <div class='dn-impact-tile-stat'><span class='dn-num'>1,000<span class='dn-unit'>+</span></span> <span class='dn-lbl'>users matched</span></div>
+          <div class='dn-impact-tile-stat'><span class='dn-num'>1,200<span class='dn-unit'>+</span></span> <span class='dn-lbl'>users matched</span></div>
         </div>
       </div>
       <div class='dn-impact-tile'>
