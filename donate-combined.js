@@ -1369,7 +1369,7 @@ html.dn-active { scroll-behavior: smooth; }
     <div class="p3-footer-col">
       <h4 class="p3-footer-col-title">Platform</h4>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/for-students">For Students</a>
-      <a class="p3-footer-link" href="https://www.pulseofp3.org/partner">For Institutions</a>
+      <a class="p3-footer-link" href="https://enterprise.pulseofp3.org/overview">For Institutions</a>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/for-mentors">For Mentors</a>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/scholarships">Scholarships</a>
     </div>
