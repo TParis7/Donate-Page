@@ -203,7 +203,7 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-hero h1 {
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 50px; font-weight: 700;
-  line-height: 1.15; letter-spacing: normal;
+  line-height: 1.15; letter-spacing: -0.02em;
   color: #fff; margin-bottom: 16px;
 }
 #dn-root .dn-hero h1 .dn-accent { color: var(--dn-crimson); }
@@ -282,7 +282,7 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-impact-card h3 {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 20px; font-weight: 700;
+  font-size: 20px; font-weight: 600;
   color: #fff; margin-bottom: 6px;
   letter-spacing: -0.01em;
   line-height: 1.2;
@@ -342,8 +342,8 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-section-header { text-align: center; margin-bottom: 28px; }
 #dn-root .dn-section-header h2 {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: clamp(28px, 3.2vw, 40px); font-weight: 700;
-  line-height: 1.2; letter-spacing: normal;
+  font-size: clamp(28px, 3.2vw, 40px); font-weight: 600;
+  line-height: 1.2; letter-spacing: -0.01em;
   max-width: 720px; margin: 0 auto;
 }
 #dn-root .dn-section-header h2 .dn-accent { color: var(--dn-crimson); }
@@ -413,8 +413,8 @@ html.dn-active { scroll-behavior: smooth; }
 
 #dn-root .dn-panel-left h3 {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 26px; font-weight: 700;
-  color: var(--dn-dark); letter-spacing: normal;
+  font-size: 26px; font-weight: 600;
+  color: var(--dn-dark); letter-spacing: -0.005em;
   line-height: 1.2; margin-bottom: 10px;
 }
 #dn-root .dn-panel-left h3 .dn-accent { color: var(--dn-crimson); }
@@ -561,9 +561,9 @@ html.dn-active { scroll-behavior: smooth; }
 }
 #dn-root .dn-impact-tile h3 {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 1.15rem; font-weight: 700;
+  font-size: 1.15rem; font-weight: 600;
   color: var(--dn-dark); margin: 0;
-  letter-spacing: normal; line-height: 1.25;
+  letter-spacing: -0.005em; line-height: 1.25;
 }
 #dn-root .dn-impact-tile p { font-size: 0.92rem; color: var(--dn-light-text); line-height: 1.55; margin: 0; }
 #dn-root .dn-impact-tile-stat {
@@ -709,9 +709,9 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-other-icon svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; }
 #dn-root .dn-other-card h3 {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 20px; font-weight: 700;
+  font-size: 20px; font-weight: 600;
   color: #fff; margin-bottom: 8px;
-  letter-spacing: normal; line-height: 1.2;
+  letter-spacing: -0.005em; line-height: 1.2;
 }
 #dn-root .dn-other-card p {
   font-size: 13.5px; color: rgba(255,255,255,0.6);
