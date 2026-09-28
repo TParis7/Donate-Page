@@ -303,6 +303,7 @@ html.dn-active { scroll-behavior: smooth; }
   color: #fff; line-height: 1; letter-spacing: -0.01em;
 }
 #dn-root .dn-impact-stat .dn-num .dn-unit { font-size: 16px; color: var(--dn-crimson); margin-left: 2px; }
+#dn-root .dn-impact-stat .dn-num .dn-unit.dn-pre { margin-left: 0; margin-right: 2px; }
 #dn-root .dn-impact-stat .dn-lbl {
   font-size: 11.5px; color: rgba(255,255,255,0.55);
   margin-top: 6px; line-height: 1.4;
@@ -1033,7 +1034,7 @@ html.dn-active { scroll-behavior: smooth; }
           <div class='dn-impact-stat'><div class='dn-num'>850<span class='dn-unit'>+</span></div><div class='dn-lbl'>Mentees active on the app</div></div>
           <div class='dn-impact-stat'><div class='dn-num'>150<span class='dn-unit'>+</span></div><div class='dn-lbl'>Professional mentors</div></div>
           <div class='dn-impact-stat'><div class='dn-num'>12<span class='dn-unit'>+</span></div><div class='dn-lbl'>Annual Scholarships</div></div>
-          <div class='dn-impact-stat'><div class='dn-num'>94<span class='dn-unit'>%</span></div><div class='dn-lbl'>Program retention rate</div></div>
+          <div class='dn-impact-stat'><div class='dn-num'><span class='dn-unit dn-pre'>+</span>90<span class='dn-unit'>%</span></div><div class='dn-lbl'>Program retention rate</div></div>
         </div>
         <div class='dn-impact-progress'>
           <div class='dn-impact-progress-row'><span>Path to 3,000 students</span><strong>1,200 / 3,000</strong></div>
@@ -1379,7 +1380,7 @@ html.dn-active { scroll-behavior: smooth; }
       <a class="p3-footer-link" href="https://www.pulseofp3.org/about/about">Our Story</a>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/about/about#team">Team</a>
       <a class="p3-footer-link" href="https://drive.google.com/file/d/1IrFocCsboO6mLZsG3GAlHjmKv_V7a9Sn/view?usp=drive_link" target="_blank" rel="noopener">Annual Report</a>
-      <a class="p3-footer-link" href="https://www.pulseofp3.org/about/in-the-press">Press</a>
+      <a class="p3-footer-link" href="/about/about#press">Press</a>
     </div>
     <div class="p3-footer-col">
       <h4 class="p3-footer-col-title">Connect</h4>
