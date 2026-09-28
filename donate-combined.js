@@ -1384,8 +1384,8 @@ html.dn-active { scroll-behavior: smooth; }
     <div class="p3-footer-col">
       <h4 class="p3-footer-col-title">Connect</h4>
       <a class="p3-footer-link" href="https://www.instagram.com/pulseofp3/" target="_blank" rel="noopener">Instagram</a>
-      <a class="p3-footer-link" href="https://www.linkedin.com/company/pulseofperserverance" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="p3-footer-link" href="https://www.youtube.com/@PulseofPerseveranceProject" target="_blank" rel="noopener">YouTube</a>
+      <a class="p3-footer-link" href="https://www.linkedin.com/company/pulseofperseverance/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="p3-footer-link" href="https://www.youtube.com/@PulseofPerseverance" target="_blank" rel="noopener">YouTube</a>
       <a class="p3-footer-link" href="https://www.pulseofp3.org/donate">Donate</a>
     </div>
   </div>
