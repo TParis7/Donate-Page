@@ -1370,7 +1370,7 @@ html.dn-active { scroll-behavior: smooth; }
     <div class='p3-footer-brand'>
       <img class='p3-footer-logo' src="https://cdn.prod.website-files.com/69b02f65f0068e9fb16f09f7/69b02f65f0068e9fb16f0df1_P3%20Logo.svg" loading="lazy" alt="P3 - Pulse of Perseverance">
       <p class='p3-footer-tagline'>Unlocking life-changing opportunities for young visionaries. Free on iOS &amp; Android.</p>
-      <p class='p3-footer-location'>Chicago, IL &middot; Founded 2018</p><a href="https://www.pulseofp3.org/about/contact" class="p3-footer-link p3-footer-contact" style="align-self:flex-start">Contact</a>
+      <p class='p3-footer-location'>Chicago, IL &middot; Founded 2018</p><a href="https://www.pulseofp3.org/about/contact" class="p3-footer-link p3-footer-contact" style="align-self:flex-start">Contact Us</a>
     </div>
     <div class="p3-footer-col">
       <h4 class="p3-footer-col-title">Platform</h4>
