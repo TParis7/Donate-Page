@@ -1355,8 +1355,8 @@ html.dn-active { scroll-behavior: smooth; }
         <div class='dn-other-icon'><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg></div>
         <h3>Corporate Partnerships</h3>
         <p>Stock gifts, multi-year sponsorships, cause-marketing campaigns, and CSR co-branding. Let's build something big together.</p>
-        <a href="mailto:alex@pulseofp3.org?subject=Corporate%20Partnership%20Inquiry" class='dn-other-link'>
-          Talk to our CRO
+        <a href="mailto:thomas@pulseofp3.org?subject=Corporate%20Partnership%20Inquiry" class='dn-other-link'>
+          Talk to our COO
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
