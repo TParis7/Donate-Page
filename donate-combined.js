@@ -733,7 +733,7 @@ html.dn-active { scroll-behavior: smooth; }
 #dn-root .dn-trust { padding: 36px 32px; background: var(--dn-warm-gray); }
 #dn-root .dn-trust-inner { max-width: 1160px; margin: 0 auto; }
 #dn-root .dn-trust-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 16px; margin-bottom: 36px;
 }
 #dn-root .dn-trust-card {
@@ -815,6 +815,7 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-give-panel.dn-active { grid-template-columns: 1fr; gap: 24px; padding: 28px; }
   #dn-root .dn-impact-grid, #dn-root .dn-other-grid { grid-template-columns: repeat(2, 1fr); }
   #dn-root .dn-trust-grid { grid-template-columns: repeat(2, 1fr); }
+  #dn-root .dn-trust-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
   #dn-root .dn-hero-trust { gap: 20px; flex-wrap: wrap; }
   /* Webflow's global CSS handles .p3-footer mobile layout (grid collapse, brand grid-column span). No overrides needed. */
 }
@@ -1027,7 +1028,7 @@ html.dn-active { scroll-behavior: smooth; }
       <div class='dn-hero-trust'>
         <div class='dn-hero-trust-stat'><div class='dn-num'>100%</div><div class='dn-lbl'>Tax-deductible</div></div>
         <div class='dn-hero-trust-stat'><div class='dn-num'>$100K+</div><div class='dn-lbl'>In monthly scholarships</div></div>
-        <div class='dn-hero-trust-stat'><div class='dn-num'>501(c)(3)</div><div class='dn-lbl'>Candid &amp; CN verified</div></div>
+        <div class='dn-hero-trust-stat'><div class='dn-num'>501(c)(3)</div><div class='dn-lbl'>Candid verified</div></div>
       </div>
     </div>
     <div class='dn-hero-visual'>
@@ -1296,12 +1297,6 @@ html.dn-active { scroll-behavior: smooth; }
       <p>P3 is a registered 501(c)(3) nonprofit with full transparency across the sector's major accountability platforms.</p>
     </div>
     <div class='dn-trust-grid'>
-      <a class='dn-trust-card' href="https://www.charitynavigator.org/ein/823649154" target="_blank" rel="noopener">
-        <div class='dn-trust-logo'><img src="${IMG_BASE}Charity-Navigator.png" alt="Charity Navigator" loading="lazy"></div>
-        <h4>Charity Navigator</h4>
-        <p>America's largest independent charity evaluator. Our full profile, rating, and financial transparency live here.</p>
-        <span class='dn-trust-link'>View profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
-      </a>
       <a class='dn-trust-card' href="https://app.candid.org/profile/9676735/pulse-of-perseverance-82-3649154" target="_blank" rel="noopener">
         <div class='dn-trust-logo'><img src="${IMG_BASE}Candid-GuideStar.png" alt="Candid GuideStar" loading="lazy"></div>
         <h4>Candid (GuideStar)</h4>
