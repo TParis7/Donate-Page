@@ -238,6 +238,11 @@ ul { list-style: none; }
   color: rgba(255,255,255,0.5);
   margin-top: 2px;
 }
+/* Candid Platinum Seal (2026). Links to the Candid profile, as Candid's toolkit asks; the artwork is shown unaltered. */
+.hero-trust { align-items: center; }
+.hero-seal { display: block; flex-shrink: 0; transition: transform 0.2s; }
+.hero-seal:hover { transform: translateY(-2px); }
+.hero-seal img { display: block; width: 76px; height: 76px; }
 
 /* Hero right — animated donation stat card */
 .hero-visual {
@@ -786,6 +791,8 @@ ul { list-style: none; }
   object-fit: contain; display: block;
 }
 .trust-logo .irs { color: #0A3161; font-size: 18px; }
+.trust-grid .trust-logo { height: 76px; }
+.trust-logo img.trust-seal { width: 76px; height: 76px; max-height: none; max-width: none; }
 .trust-card h4 {
   font-size: 13px; font-weight: 700;
   color: var(--dark); letter-spacing: 0.3px;
@@ -913,6 +920,7 @@ ul { list-style: none; }
   .impact-grid, .other-grid { grid-template-columns: repeat(2, 1fr); }
   .trust-grid { grid-template-columns: repeat(2, 1fr); }
   .trust-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .trust-grid .trust-card:last-child:nth-child(odd) .trust-logo { height: 44px; }
   .hero-trust { gap: 20px; flex-wrap: wrap; }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
   .footer-brand { grid-column: 1 / -1; }
@@ -932,6 +940,7 @@ ul { list-style: none; }
   .hero-trust-stat { align-items: center; }
   .hero-trust-stat .num { font-size: 1.2rem; }
   .hero-trust-stat .lbl { font-size: 0.68rem; }
+  .hero-seal img { width: 68px; height: 68px; }
 
   /* Hide "Rapidly Growing Community" impact card entirely on mobile */
   .impact-card { display: none !important; }
@@ -993,6 +1002,9 @@ ul { list-style: none; }
   .hero-trust { gap: 14px; }
   .tab-title { font-size: 12px; }
   .trust-grid { gap: 10px; }
+  .hero-seal img { width: 64px; height: 64px; }
+  .trust-grid .trust-logo { height: 64px; }
+  .trust-logo img.trust-seal { width: 64px; height: 64px; }
 }
 </style>
 </head>
@@ -1048,10 +1060,7 @@ ul { list-style: none; }
           <div class="num">$100K+</div>
           <div class="lbl">In monthly scholarships</div>
         </div>
-        <div class="hero-trust-stat">
-          <div class="num">501(c)(3)</div>
-          <div class="lbl">Candid verified</div>
-        </div>
+        <a class="hero-seal" href="https://app.candid.org/profile/9676735/pulse-of-perseverance-82-3649154" target="_blank" rel="noopener" title="View our Candid profile"><img src="candid-seal-platinum-2026.png" alt="Candid Platinum Seal of Transparency 2026" width="76" height="76"></a>
       </div>
     </div>
     <div class="hero-visual">
@@ -1060,8 +1069,8 @@ ul { list-style: none; }
         <p>Help us reach 3,000 students by December.</p>
         <div class="impact-stats">
           <div class="impact-stat">
-            <div class="num">850<span class="unit">+</span></div>
-            <div class="lbl">Mentees active on the app</div>
+            <div class="num">1,200<span class="unit">+</span></div>
+            <div class="lbl">Students &amp; mentors</div>
           </div>
           <div class="impact-stat">
             <div class="num">150<span class="unit">+</span></div>
@@ -1182,7 +1191,7 @@ ul { list-style: none; }
     <div class="give-panel" id="panel-onetime">
       <div class="panel-left">
         <h3>Make a <span class="accent">one-time gift</span>.</h3>
-        <p class="lede">Fast, secure, and flexible. A one-time donation powers monthly scholarships for visionary students, expands our mentor bench, and keeps the P3 app free for the 850+ mentees who rely on it.</p>
+        <p class="lede">Fast, secure, and flexible. A one-time donation powers monthly scholarships for visionary students, expands our mentor bench, and keeps the P3 app free for the 1,200+ students and mentors who rely on it.</p>
         <div class="panel-bullets">
           <div class="panel-bullet">
             <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1397,9 +1406,9 @@ ul { list-style: none; }
     </div>
     <div class="trust-grid">
       <a class="trust-card" href="https://app.candid.org/profile/9676735/pulse-of-perseverance-82-3649154" target="_blank" rel="noopener">
-        <div class="trust-logo"><img src="Candid-GuideStar.png" alt="Candid GuideStar" loading="lazy"></div>
-        <h4>Candid (GuideStar)</h4>
-        <p>The gold standard for nonprofit transparency. See our 990, governance, and program data in full detail.</p>
+        <div class="trust-logo"><img class="trust-seal" src="candid-seal-platinum-2026.png" alt="Candid Platinum Seal of Transparency 2026" width="76" height="76" loading="lazy"></div>
+        <h4>Candid Platinum Seal</h4>
+        <p>Candid's highest Seal of Transparency. See our 990, governance, and program results in full detail.</p>
         <span class="trust-link">View profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
       </a>
       <a class="trust-card" href="mailto:thomas@pulseofp3.org?subject=Benevity%20Workplace%20Giving" rel="noopener">

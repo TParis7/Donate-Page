@@ -257,6 +257,11 @@ html.dn-active { scroll-behavior: smooth; }
   color: rgba(255,255,255,0.5);
   margin-top: 2px;
 }
+/* Candid Platinum Seal (2026). Links to the Candid profile, as Candid's toolkit asks; the artwork is shown unaltered. */
+#dn-root .dn-hero-trust { align-items: center; }
+#dn-root .dn-hero-seal { display: block; flex-shrink: 0; transition: transform 0.2s; }
+#dn-root .dn-hero-seal:hover { transform: translateY(-2px); }
+#dn-root .dn-hero-seal img { display: block; width: 76px; height: 76px; }
 
 #dn-root .dn-hero-visual {
   position: relative;
@@ -761,6 +766,8 @@ html.dn-active { scroll-behavior: smooth; }
   object-fit: contain; display: block;
 }
 #dn-root .dn-trust-logo .dn-irs { color: #0A3161; font-size: 18px; }
+#dn-root .dn-trust-grid .dn-trust-logo { height: 76px; }
+#dn-root .dn-trust-logo img.dn-trust-seal { width: 76px; height: 76px; max-height: none; max-width: none; }
 #dn-root .dn-trust-card h4 {
   font-size: 13px; font-weight: 700;
   color: var(--dn-dark); letter-spacing: 0.3px;
@@ -816,6 +823,7 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-impact-grid, #dn-root .dn-other-grid { grid-template-columns: repeat(2, 1fr); }
   #dn-root .dn-trust-grid { grid-template-columns: repeat(2, 1fr); }
   #dn-root .dn-trust-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  #dn-root .dn-trust-grid .dn-trust-card:last-child:nth-child(odd) .dn-trust-logo { height: 44px; }
   #dn-root .dn-hero-trust { gap: 20px; flex-wrap: wrap; }
   /* Webflow's global CSS handles .p3-footer mobile layout (grid collapse, brand grid-column span). No overrides needed. */
 }
@@ -840,6 +848,7 @@ html.dn-active { scroll-behavior: smooth; }
     justify-items: center; text-align: center;
   }
   #dn-root .dn-hero-trust-stat { align-items: center; }
+  #dn-root .dn-hero-seal img { width: 68px; height: 68px; }
   #dn-root .dn-hero-trust-stat .dn-num { font-size: 1.6rem; letter-spacing: -0.01em; }
   #dn-root .dn-hero-trust-stat .dn-lbl { font-size: 0.72rem; letter-spacing: 0.3px; line-height: 1.3; }
 
@@ -904,6 +913,9 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-hero-trust { gap: 8px; }
   #dn-root .dn-tab-title { font-size: 12px; }
   #dn-root .dn-trust-grid { gap: 10px; }
+  #dn-root .dn-hero-seal img { width: 64px; height: 64px; }
+  #dn-root .dn-trust-grid .dn-trust-logo { height: 64px; }
+  #dn-root .dn-trust-logo img.dn-trust-seal { width: 64px; height: 64px; }
 }
 
 /* Chrome family (Sep 2026 parity pass). Family only: the nav, overlay and footer are body-level siblings that inherit Webflow's body line-height (30.006px), the value every nav measurement depends on, so line-height is never set here. Element selectors as well as the containers, because Webflow's compiled stylesheet sets Inter directly on .p3-nav-cta, .p3-footer-col-title, .p3-footer-tagline and .pp-mob-overlay-link, and a direct rule beats inheritance. */
@@ -1028,7 +1040,7 @@ html.dn-active { scroll-behavior: smooth; }
       <div class='dn-hero-trust'>
         <div class='dn-hero-trust-stat'><div class='dn-num'>100%</div><div class='dn-lbl'>Tax-deductible</div></div>
         <div class='dn-hero-trust-stat'><div class='dn-num'>$100K+</div><div class='dn-lbl'>In monthly scholarships</div></div>
-        <div class='dn-hero-trust-stat'><div class='dn-num'>501(c)(3)</div><div class='dn-lbl'>Candid verified</div></div>
+        <a class='dn-hero-seal' href="https://app.candid.org/profile/9676735/pulse-of-perseverance-82-3649154" target="_blank" rel="noopener" title="View our Candid profile"><img src="${IMG_BASE}candid-seal-platinum-2026.png" alt="Candid Platinum Seal of Transparency 2026" width="76" height="76"></a>
       </div>
     </div>
     <div class='dn-hero-visual'>
@@ -1036,7 +1048,7 @@ html.dn-active { scroll-behavior: smooth; }
         <h3>Rapidly <span class="dn-accent">Growing</span> Community.</h3>
         <p>Help us reach 3,000 students by December.</p>
         <div class='dn-impact-stats'>
-          <div class='dn-impact-stat'><div class='dn-num'>850<span class='dn-unit'>+</span></div><div class='dn-lbl'>Mentees active on the app</div></div>
+          <div class='dn-impact-stat'><div class='dn-num'>1,200<span class='dn-unit'>+</span></div><div class='dn-lbl'>Students &amp; mentors</div></div>
           <div class='dn-impact-stat'><div class='dn-num'>150<span class='dn-unit'>+</span></div><div class='dn-lbl'>Professional mentors</div></div>
           <div class='dn-impact-stat'><div class='dn-num'>12<span class='dn-unit'>+</span></div><div class='dn-lbl'>Annual Scholarships</div></div>
           <div class='dn-impact-stat'><div class='dn-num'><span class='dn-unit dn-pre'>+</span>90<span class='dn-unit'>%</span></div><div class='dn-lbl'>Program retention rate</div></div>
@@ -1120,7 +1132,7 @@ html.dn-active { scroll-behavior: smooth; }
     <div class='dn-give-panel' id="panel-onetime">
       <div class='dn-panel-left'>
         <h3>Make a <span class="dn-accent">one-time gift</span>.</h3>
-        <p class='dn-lede'>Fast, secure, and flexible. A one-time donation powers monthly scholarships for visionary students, expands our mentor bench, and keeps the P3 app free for the 850+ mentees who rely on it.</p>
+        <p class='dn-lede'>Fast, secure, and flexible. A one-time donation powers monthly scholarships for visionary students, expands our mentor bench, and keeps the P3 app free for the 1,200+ students and mentors who rely on it.</p>
         <div class='dn-panel-bullets'>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Card, Apple Pay, Google Pay, bank transfer, crypto</span></div>
           <div class='dn-panel-bullet'><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg><span>Instant tax-deductible receipt by email</span></div>
@@ -1298,9 +1310,9 @@ html.dn-active { scroll-behavior: smooth; }
     </div>
     <div class='dn-trust-grid'>
       <a class='dn-trust-card' href="https://app.candid.org/profile/9676735/pulse-of-perseverance-82-3649154" target="_blank" rel="noopener">
-        <div class='dn-trust-logo'><img src="${IMG_BASE}Candid-GuideStar.png" alt="Candid GuideStar" loading="lazy"></div>
-        <h4>Candid (GuideStar)</h4>
-        <p>The gold standard for nonprofit transparency. See our 990, governance, and program data in full detail.</p>
+        <div class='dn-trust-logo'><img class='dn-trust-seal' src="${IMG_BASE}candid-seal-platinum-2026.png" alt="Candid Platinum Seal of Transparency 2026" width="76" height="76" loading="lazy"></div>
+        <h4>Candid Platinum Seal</h4>
+        <p>Candid's highest Seal of Transparency. See our 990, governance, and program results in full detail.</p>
         <span class='dn-trust-link'>View profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
       </a>
       <a class='dn-trust-card' href="mailto:thomas@pulseofp3.org?subject=Benevity%20Workplace%20Giving" rel="noopener">
