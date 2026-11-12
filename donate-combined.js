@@ -827,6 +827,13 @@ html.dn-active { scroll-behavior: smooth; }
   #dn-root .dn-hero-trust { gap: 20px; flex-wrap: wrap; }
   /* Webflow's global CSS handles .p3-footer mobile layout (grid collapse, brand grid-column span). No overrides needed. */
 }
+/* Wide, short touch screens: an open iPhone Duo is 951 x 543 in Safari, and small tablets in
+   landscape land here too (Thomas, Nov 12 2026). The hero keeps its two columns so the
+   impact card sits beside the copy. */
+@media (min-width: 860px) and (max-width: 991px) {
+  #dn-root .dn-hero-inner { grid-template-columns: 1.05fr 1fr; gap: 32px; }
+  #dn-root .dn-hero-visual { max-width: none; margin: 0; }
+}
 @media (max-width: 768px) {
   /* Mobile hero: fixed nav is 64px on mobile; 120px top-padding = 64 + 56px
      breathing room so the h1 doesn't sit directly beneath the nav bar. */
@@ -1705,5 +1712,23 @@ html.dn-active { scroll-behavior: smooth; }
     if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
   }
   queue();
+})();
+/* p3-navwide v1 (Nov 12 2026). Source: Website Folder/site-chrome/navwide.js, applied with rail.js
+   by apply-rail.py. The full navigation (logo, four links, Enterprise and Login) needs 780px, but
+   every page switched to the menu button at 991px. An open iPhone Duo is 951px wide in Safari, so
+   it got the phone menu on a tablet-wide screen. From 860 to 991px the full bar now shows. The
+   selectors out-rank the nav spec's and the pages' own 991px rules, whatever order the styles load in. */
+(function () {
+  if (window.__p3NavWide) return;
+  window.__p3NavWide = 1;
+  var css = '@media (min-width: 860px) and (max-width: 991px) {' +
+    'html body .p3-nav .p3-nav-links, html body .p3-nav .p3-nav-actions { display: flex !important; }' +
+    'html body .p3-nav .pp-mob-menu { display: none !important; }' +
+    'html body .p3-nav { padding: 16px 32px !important; height: auto !important; }' +
+    '}';
+  var st = document.createElement('style');
+  st.id = 'p3-nav-wide';
+  st.textContent = css;
+  (document.head || document.documentElement).appendChild(st);
 })();
 /* p3-rail:end */
